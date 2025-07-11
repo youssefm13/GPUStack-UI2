@@ -61,9 +61,9 @@ async def perform_web_search_async(query: str, http_client: httpx.AsyncClient = 
         # Clean and process content
         content = clean_content(content)
         
-        # If content is too long, truncate it to ~1500 chars to avoid LLM context issues
-        if len(content) > 1500:
-            content = content[:1500] + "...[content truncated]"
+        # If content is too long, truncate it to ~12000 chars to get more content
+        if len(content) > 12000:
+            content = content[:12000] + "...[content truncated]"
         
         # Only add results with substantial content (reduced threshold for more sources)
         if len(content.strip()) > 20:  # Even further reduced minimum content length
@@ -96,7 +96,7 @@ async def process_search_results_with_llm_async(query: str, search_results: dict
     
     # Create a simpler prompt for faster processing
     results_text = "\n\n".join([
-        f"Title: {result['title']}\nContent: {result['content'][:300]}..."  # Limit content length
+        f"Title: {result['title']}\nContent: {result['content'][:600]}..."  # Increased content length to 600
         for result in search_results['results'][:5]  # Only process first 5 results
     ])
     
@@ -111,8 +111,8 @@ async def process_search_results_with_llm_async(query: str, search_results: dict
 Key points only. Sources: {source_links}"""
     
     try:
-        # Use provided http_client or create a new one with shorter timeout
-        client = http_client or httpx.AsyncClient(timeout=15.0)  # Much shorter timeout
+        # Use provided http_client or create a new one with increased timeout
+        client = http_client or httpx.AsyncClient(timeout=120.0)  # Increased timeout for larger content
         
         # Try different models in order of preference
         model_options = [
@@ -143,7 +143,7 @@ Key points only. Sources: {source_links}"""
                         "temperature": 0.3,
                         "stream": False
                     },
-                    timeout=10.0  # Much shorter timeout per attempt
+                    timeout=90.0  # Increased timeout per attempt for thinking models
                 )
                 
                 if response.status_code == 200:
@@ -180,12 +180,7 @@ Key points only. Sources: {source_links}"""
         if not success:
             # If all models failed, create a simple summary manually
             print(f"All models failed, creating manual summary for query: {query}")
-            manual_summary = f"""🔍 Search Results for "{query}":
-
-{chr(10).join([f"• {result['title']}: {result['content'][:150]}..." for result in search_results['results'][:5]])}
-
-📚 Sources:
-{source_links}"""
+            manual_summary = f"""🔍 Search Results for "{query}":\n\n{chr(10).join([f"• {result['title']}: {result['content'][:600]}..." for result in search_results['results'][:5]])}\n\n📚 Sources:\n{source_links}"""
             
             search_results['llm_summary'] = manual_summary
             search_results['processing_status'] = 'manual_fallback'
