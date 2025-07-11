@@ -1843,7 +1843,7 @@
             }
         }
         
-        // Display enhanced AI summary only (no individual sources)
+        // Display enhanced AI summary with sources AND individual results
         function displaySearchResults(results, llmSummary = null, processingStatus = null) {
             console.log('displaySearchResults called with:', results.length, 'results'); // Debug
             const chatMessages = document.getElementById('chatMessages');
@@ -1858,23 +1858,51 @@
             
             let renderedContent = '';
             
-            // Display enhanced AI summary only
+            // Always show the AI summary first (if available)
             if (llmSummary && processingStatus === 'success') {
                 // Process the AI summary for better rendering (including markdown-like formatting)
                 const processedSummary = renderMarkdown(llmSummary);
                 
-                renderedContent = `<div class="p-4 rounded-lg" style="background-color: var(--bg-tertiary); border-left: 4px solid var(--accent-blue);">
-                    <h3 class="text-lg font-semibold mb-3" style="color: var(--accent-blue);">🔍 Search Analysis</h3>
+                renderedContent = `<div class="p-4 rounded-lg mb-4" style="background-color: var(--bg-tertiary); border-left: 4px solid var(--accent-blue);">
+                    <h3 class="text-lg font-semibold mb-3" style="color: var(--accent-blue);">🔍 AI Search Summary</h3>
                     <div class="text-sm leading-relaxed" style="color: var(--text-primary);">
                         ${processedSummary}
                     </div>
                 </div>`;
-            } else {
-                // Fallback when AI processing fails - show simple message
-                renderedContent = `<div class="p-4 rounded-lg" style="background-color: var(--bg-tertiary); border-left: 4px solid var(--accent-yellow);">
+            }
+            
+            // No individual sources section - only show AI summary
+            if (!results || results.length === 0) {
+                // Fallback when no results or AI processing fails
+                renderedContent += `<div class="p-4 rounded-lg" style="background-color: var(--bg-tertiary); border-left: 4px solid var(--accent-yellow);">
                     <h3 class="text-lg font-semibold mb-3" style="color: var(--accent-yellow);">⚠️ Search Results</h3>
-                    <div class="text-sm" style="color: var(--text-muted);">AI processing unavailable (${processingStatus || 'unknown error'}). Please try your search again.</div>
-                </div>`;
+                    <div class="text-sm mb-3" style="color: var(--text-muted);">AI processing unavailable (${processingStatus || 'unknown error'}). Showing condensed results:</div>`;
+                
+                // Show condensed results when AI processing fails
+                for (let i = 0; i < Math.min(results.length, 3); i++) {
+                    const result = results[i];
+                    const snippet = result.snippet || result.content || 'No description available';
+                    const truncatedSnippet = snippet.length > 200 ? snippet.substring(0, 200) + '...' : snippet;
+                    
+                    renderedContent += `<div class="mb-3 pb-2" style="border-bottom: 1px solid var(--border-color);">
+                        <div class="font-medium mb-1" style="color: var(--text-primary);">${escapeHtml(result.title)}</div>
+                        <div class="text-xs mb-1" style="color: var(--text-muted);">${escapeHtml(truncatedSnippet)}</div>
+                    </div>`;
+                }
+                
+                // Add sources section for fallback
+                renderedContent += `<div class="mt-4 pt-3" style="border-top: 1px solid var(--border-color);">
+                    <div class="font-semibold mb-2" style="color: var(--text-primary);">Sources:</div>`;
+                
+                results.forEach((result, index) => {
+                    renderedContent += `<div class="text-xs mb-1">
+                        <a href="${escapeHtml(result.url)}" target="_blank" class="hover:underline" style="color: var(--accent-blue);">
+                            [${index + 1}] ${escapeHtml(result.title)}
+                        </a>
+                    </div>`;
+                });
+                
+                renderedContent += `</div></div>`;
             }
 
             messageDiv.innerHTML = `

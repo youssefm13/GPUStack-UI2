@@ -1,8 +1,15 @@
-# Python
+# Python virtual environment
+venv/
+env/
+ENV/
+
+# Python cache files
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -20,54 +27,56 @@ wheels/
 .installed.cfg
 *.egg
 
-# Environment files (SECURITY)
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Environment variables
+.env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
 .env.prod
-.env.dev
-.env.staging
 
-# Database files
-*.db
-*.sqlite
-*.sqlite3
-backend/gpustack_ui.db
-backend/test_gpustack_ui.db
-
-# Logs
-logs/
-*.log
-backend/backend_debug.log
-
-# Uploads and temporary files
-uploads/
-temp/
-tmp/
-
-# IDE and editor files
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# OS generated files
+# OS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
-# Docker
-.dockerignore
-docker-compose.override.yml
+# Logs
+logs/
+*.log
 
-# Node.js (if using npm/yarn for frontend tools)
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Uploads and data
+uploads/
+data/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3

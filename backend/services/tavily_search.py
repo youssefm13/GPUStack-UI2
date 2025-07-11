@@ -37,10 +37,11 @@ async def perform_web_search_async(query: str, http_client: httpx.AsyncClient = 
     # Enhanced search with better parameters for content quality
     response = client.search(
         query=enhanced_query, 
-        max_results=8,  # Get more results to filter from
+        max_results=15,  # Get more results to filter from
         include_raw_content=True,  # Get more detailed content
         search_depth="advanced",  # Use advanced search for better results
-        exclude_domains=["google.com", "bing.com", "yahoo.com", "facebook.com", "twitter.com"]  # Exclude low-content sites
+        exclude_domains=["google.com", "bing.com", "yahoo.com", "facebook.com", "twitter.com", "instagram.com", "tiktok.com", "pinterest.com"],  # Exclude low-content sites
+        # Remove include_domains to get more diverse results
     )
     
     # Create structured results with enhanced content
@@ -64,8 +65,8 @@ async def perform_web_search_async(query: str, http_client: httpx.AsyncClient = 
         if len(content) > 1500:
             content = content[:1500] + "...[content truncated]"
         
-        # Only add results with substantial content
-        if len(content.strip()) > 100:  # Minimum content length
+        # Only add results with substantial content (reduced threshold for more sources)
+        if len(content.strip()) > 20:  # Even further reduced minimum content length
             structured_results["results"].append({
                 "title": result.get('title', 'No title'),
                 "url": result.get('url', ''),
@@ -75,14 +76,14 @@ async def perform_web_search_async(query: str, http_client: httpx.AsyncClient = 
                 "index": len(structured_results["results"]) + 1
             })
     
-            # Process results through LLM for better context
-        try:
-            processed_results = await process_search_results_with_llm_async(query, structured_results, http_client, model_name)
-            return processed_results
-        except Exception as e:
-            print(f"Error processing search results with LLM: {e}")
-            # Return original results if LLM processing fails
-            return structured_results
+    # Process results through LLM for better context (moved outside the loop)
+    try:
+        processed_results = await process_search_results_with_llm_async(query, structured_results, http_client, model_name)
+        return processed_results
+    except Exception as e:
+        print(f"Error processing search results with LLM: {e}")
+        # Return original results if LLM processing fails
+        return structured_results
 
 async def process_search_results_with_llm_async(query: str, search_results: dict, http_client: httpx.AsyncClient = None, model_name: str = "qwen3"):
     """Process search results through LLM to create better summaries and context."""
@@ -105,18 +106,13 @@ async def process_search_results_with_llm_async(query: str, search_results: dict
         for i, result in enumerate(search_results['results'])
     ])
     
-    prompt = f"""Summarize these search results for the query "{query}":
+    prompt = f"""Summarize for "{query}": {results_text}
 
-{results_text}
-
-Provide a concise summary of the key findings and insights. Include the most important facts and trends.
-
-Sources:
-{source_links}"""
+Key points only. Sources: {source_links}"""
     
     try:
         # Use provided http_client or create a new one with shorter timeout
-        client = http_client or httpx.AsyncClient(timeout=30.0)  # Reduced timeout
+        client = http_client or httpx.AsyncClient(timeout=15.0)  # Much shorter timeout
         
         # Try different models in order of preference
         model_options = [
@@ -130,7 +126,7 @@ Sources:
             try:
                 print(f"Trying model: {model}")
                 
-                # Send request with shorter timeout
+                # Send request with much shorter timeout
                 response = await client.post(
                     f"{settings.gpustack_api_base}/v1/chat/completions",
                     headers={
@@ -140,14 +136,14 @@ Sources:
                     json={
                         "model": model,
                         "messages": [
-                            {"role": "system", "content": "You are a helpful assistant that summarizes web search results clearly and concisely."},
+                            {"role": "system", "content": "Summarize search results briefly."},
                             {"role": "user", "content": prompt}
                         ],
-                        "max_tokens": 2000,  # Reduced for faster processing
+                        "max_tokens": 1000,  # Much shorter for faster processing
                         "temperature": 0.3,
                         "stream": False
                     },
-                    timeout=20.0  # Shorter timeout per attempt
+                    timeout=10.0  # Much shorter timeout per attempt
                 )
                 
                 if response.status_code == 200:
@@ -184,11 +180,11 @@ Sources:
         if not success:
             # If all models failed, create a simple summary manually
             print(f"All models failed, creating manual summary for query: {query}")
-            manual_summary = f"""Based on the search results for "{query}", here are the key findings:
+            manual_summary = f"""🔍 Search Results for "{query}":
 
-{chr(10).join([f"• {result['title']}: {result['content'][:200]}..." for result in search_results['results'][:3]])}
+{chr(10).join([f"• {result['title']}: {result['content'][:150]}..." for result in search_results['results'][:5]])}
 
-Sources:
+📚 Sources:
 {source_links}"""
             
             search_results['llm_summary'] = manual_summary
@@ -204,7 +200,7 @@ Sources:
 
 def is_low_quality_content(content: str, title: str) -> bool:
     """Check if content is low quality (navigation, empty, etc.)"""
-    if not content or len(content.strip()) < 50:
+    if not content or len(content.strip()) < 20:  # Much more lenient
         return True
     
     # Check for navigation-heavy content
@@ -218,14 +214,14 @@ def is_low_quality_content(content: str, title: str) -> bool:
     # Count navigation indicators
     nav_count = sum(1 for indicator in nav_indicators if indicator.lower() in content.lower())
     
-    # If more than 30% of content length is navigation-like or too many nav indicators
+    # Much more lenient filtering
     content_words = len(content.split())
-    if nav_count > 5 or (content_words < 100 and nav_count > 2):
+    if nav_count > 12 or (content_words < 30 and nav_count > 5):  # Much more lenient
         return True
     
-    # Check for generic page titles
+    # Check for generic page titles (more lenient)
     generic_titles = ["google", "search", "news", "homepage", "home page"]
-    if any(generic in title.lower() for generic in generic_titles) and len(content.strip()) < 200:
+    if any(generic in title.lower() for generic in generic_titles) and len(content.strip()) < 100:
         return True
     
     return False
@@ -269,14 +265,26 @@ def enhance_search_query(query: str) -> str:
     
     # Add context for news/current events queries
     news_keywords = ['news', 'today', 'latest', 'current', 'recent', 'market', 'stock']
+    sports_keywords = ['soccer', 'football', 'sports', 'match', 'game', 'team', 'player']
+    weather_keywords = ['weather', 'temperature', 'forecast', 'climate']
+    
+    # Enhanced weather queries
+    if any(keyword in query for keyword in weather_keywords):
+        return f"{query} current conditions forecast multiple sources"
+    
+    # Enhanced sports queries
+    if any(keyword in query for keyword in sports_keywords):
+        return f"{query} latest news updates results scores multiple sources"
+    
+    # Add context for news/current events queries
     if any(keyword in query for keyword in news_keywords):
         if 'stock' in query or 'market' in query:
-            return f"{query} financial news articles latest"
+            return f"{query} financial news articles latest multiple sources"
         else:
-            return f"{query} news articles latest updates"
+            return f"{query} news articles latest updates multiple sources"
     
     # For general queries, add context for better content
-    return f"{query} comprehensive information articles"
+    return f"{query} comprehensive information articles latest multiple sources"
 
 # Backward compatibility - sync wrapper
 def perform_web_search(query: str):
