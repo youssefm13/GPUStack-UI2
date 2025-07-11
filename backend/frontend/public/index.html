@@ -167,6 +167,31 @@
             color: var(--text-secondary);
         }
         
+        /* System Message Styling */
+        .chat-message .system {
+            background-color: #FBB03B !important;
+            color: black !important;
+            border-left: 4px solid #FBB03B !important;
+        }
+        
+        .chat-message .system .markdown-content {
+            color: black !important;
+        }
+        
+        .chat-message .system .markdown-content h1,
+        .chat-message .system .markdown-content h2,
+        .chat-message .system .markdown-content h3 {
+            color: black !important;
+        }
+        
+        .chat-message .system .markdown-content p {
+            color: black !important;
+        }
+        
+        .chat-message .system .text-xs {
+            color: black !important;
+        }
+        
         /* Copy button for code blocks */
         .code-block-wrapper {
             position: relative;
@@ -590,7 +615,7 @@
                         <button 
                             onclick="performSearch()" 
                             class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-colors"
-                            style="background-color: var(--accent-purple); color: white;"
+                            style="background-color: #3FA9F5; color: white;"
                             onmouseover="this.style.opacity='0.9'"
                             onmouseout="this.style.opacity='1'"
                         >
@@ -1521,20 +1546,24 @@
             }
 
             // Use CSS variables for styling
-            let messageStyle, textColor;
+            let messageStyle, textColor, additionalClass;
             if (role === 'user') {
                 messageStyle = 'background-color: var(--accent-blue); color: white;';
                 textColor = 'color: white;';
+                additionalClass = '';
             } else if (role === 'assistant') {
                 messageStyle = 'background-color: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border-color);';
                 textColor = 'color: var(--text-primary);';
+                additionalClass = '';
             } else {
-                messageStyle = 'background-color: var(--accent-yellow); color: var(--bg-primary);';
-                textColor = 'color: var(--bg-primary);';
+                // For system messages, use CSS class instead of inline styles
+                messageStyle = '';
+                textColor = '';
+                additionalClass = 'system';
             }
 
             messageDiv.innerHTML = `
-                <div class="inline-block max-w-full lg:max-w-4xl px-4 py-3 rounded-lg" style="${messageStyle}">
+                <div class="inline-block max-w-full lg:max-w-4xl px-4 py-3 rounded-lg ${additionalClass}" style="${messageStyle}">
                     <div class="text-xs opacity-75 mb-2" style="${textColor}">${role.charAt(0).toUpperCase() + role.slice(1)}</div>
                     ${renderedContent}
                 </div>
@@ -1566,20 +1595,24 @@
             messageDiv.className = `chat-message mb-4 ${role === 'user' ? 'text-right' : 'text-left'}`;
 
             // Use CSS variables for styling
-            let messageStyle, textColor;
+            let messageStyle, textColor, additionalClass;
             if (role === 'user') {
                 messageStyle = 'background-color: var(--accent-blue); color: white;';
                 textColor = 'color: white;';
+                additionalClass = '';
             } else if (role === 'assistant') {
                 messageStyle = 'background-color: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border-color);';
                 textColor = 'color: var(--text-primary);';
+                additionalClass = '';
             } else {
-                messageStyle = 'background-color: var(--accent-yellow); color: var(--bg-primary);';
-                textColor = 'color: var(--bg-primary);';
+                // For system messages, use CSS class instead of inline styles
+                messageStyle = '';
+                textColor = '';
+                additionalClass = 'system';
             }
 
             messageDiv.innerHTML = `
-                <div class="inline-block max-w-full lg:max-w-4xl px-4 py-3 rounded-lg" style="${messageStyle}">
+                <div class="inline-block max-w-full lg:max-w-4xl px-4 py-3 rounded-lg ${additionalClass}" style="${messageStyle}">
                     <div class="text-xs opacity-75 mb-2" style="${textColor}">${role.charAt(0).toUpperCase() + role.slice(1)}</div>
                     <div class="whitespace-pre-wrap text-sm leading-relaxed" id="${messageId}-content" style="${textColor}">▋</div>
                 </div>

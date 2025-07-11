@@ -402,4 +402,29 @@ input:focus, textarea:focus, select:focus {
 .flex-1 { flex: 1 1 0%; }
 .flex-shrink-0 { flex-shrink: 0; }
 .overflow-hidden { overflow: hidden; }
-.overflow-y-auto { overflow-y: auto; } 
+.overflow-y-auto { overflow-y: auto; }
+
+/* System Message Styling */
+.chat-message .system {
+  background-color: #FBB03B !important;
+  color: black !important;
+  border-left: 4px solid #FBB03B !important;
+}
+
+.chat-message .system .markdown-content {
+  color: black !important;
+}
+
+.chat-message .system .markdown-content h1,
+.chat-message .system .markdown-content h2,
+.chat-message .system .markdown-content h3 {
+  color: black !important;
+}
+
+.chat-message .system .markdown-content p {
+  color: black !important;
+}
+
+.chat-message .system .text-xs {
+  color: black !important;
+} 
