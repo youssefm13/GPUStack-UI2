@@ -1,0 +1,91 @@
+# Production Dockerfile for GPUStack UI Backend
+# Multi-stage build for optimized production images
+
+# Stage 1: Build dependencies
+FROM python:3.12-slim as builder
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Install system dependencies for building
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create and set working directory
+WORKDIR /app
+
+# Copy requirements and install dependencies globally
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Stage 2: Frontend CSS Build
+FROM node:20-alpine as frontend-builder
+
+WORKDIR /app
+
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm ci --only=production
+
+# Copy frontend source (no need to rebuild Tailwind)
+# The frontend already has compiled CSS
+
+# Stage 3: Production runtime
+FROM python:3.12-slim as production
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH="/app"
+
+# Install runtime dependencies only
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Create non-root user for security
+RUN groupadd -r appuser && useradd -r -g appuser appuser
+
+# Create app directory
+WORKDIR /app
+
+# Copy Python dependencies from builder stage (install globally)
+COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
+
+# Copy backend application code
+COPY backend/ .
+
+# Copy frontend files to the expected location
+COPY frontend/public ./frontend/public
+
+# No need to copy built CSS - using existing CSS files
+
+# Create necessary directories and set permissions
+RUN mkdir -p /app/logs /app/uploads && \
+    chown -R appuser:appuser /app
+
+# Switch to non-root user
+USER appuser
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8001/api/health || exit 1
+
+# Expose port
+EXPOSE 8001
+
+# Production command with optimizations
+CMD ["uvicorn", "main:app", \
+     "--host", "0.0.0.0", \
+     "--port", "8001", \
+     "--workers", "4", \
+     "--access-log", \
+     "--log-level", "info"]

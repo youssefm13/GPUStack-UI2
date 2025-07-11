@@ -1,0 +1,13 @@
+{
+  "name": "gpustack-ui",
+  "version": "1.0.0",
+  "description": "GPUStack UI with custom CSS framework",
+  "scripts": {
+    "dev": "echo 'Development server - use docker-compose up'",
+    "build": "echo 'Build complete - CSS is now static'",
+    "start": "echo 'Start with docker-compose up'"
+  },
+  "keywords": ["gpustack", "ui", "css", "framework"],
+  "author": "GPUStack Team",
+  "license": "MIT"
+}

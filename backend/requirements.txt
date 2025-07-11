@@ -1,0 +1,42 @@
+fastapi
+uvicorn
+httpx
+python-multipart
+pdfplumber
+python-docx
+Pillow
+tavily-python
+psutil
+python-jose[cryptography]
+passlib[bcrypt]
+python-dotenv
+pydantic-settings
+
+# Database dependencies
+sqlalchemy
+alembic
+aiosqlite
+greenlet
+
+# OCR and image processing dependencies
+pytesseract>=0.3.10
+opencv-python-headless>=4.8.0
+pdf2image>=1.16.0
+filetype>=1.2.0
+python-magic>=0.4.27
+
+# Enhanced PDF processing
+camelot-py[cv]>=0.10.1
+tabula-py>=2.8.0
+pdfplumber>=0.9.0
+
+# Document intelligence
+langdetect>=1.0.9
+
+# Testing dependencies
+pytest
+pytest-asyncio
+pytest-cov
+httpx
+faker
+

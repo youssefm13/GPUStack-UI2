@@ -1,0 +1,3782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NED Secure AI - CACHE BUSTER 21:52</title>
+    <script src="./config.js"></script>
+    <link rel="stylesheet" href="./static/styles/main.css?v=2025-01-29-23:00:00">
+    <script src="./static/assets/marked.min.js"></script>
+    <script src="./static/assets/highlight.min.js"></script>
+    <link rel="stylesheet" href="./static/assets/github-dark.min.css" id="hljs-dark">
+    <link rel="stylesheet" href="./static/assets/github.min.css" id="hljs-light" disabled>
+    <style>
+        /* Theme Variables */
+        :root {
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --bg-quaternary: #4b5563;
+            --text-primary: #ffffff;
+            --text-secondary: #e5e7eb;
+            --text-tertiary: #d1d5db;
+            --text-muted: #9ca3af;
+            --border-color: #4b5563;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-yellow: #f59e0b;
+            --accent-red: #ef4444;
+        }
+        
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --bg-quaternary: #e5e7eb;
+            --text-primary: #111827;
+            --text-secondary: #374151;
+            --text-tertiary: #4b5563;
+            --text-muted: #6b7280;
+            --border-color: #d1d5db;
+            --accent-blue: #2563eb;
+            --accent-green: #059669;
+            --accent-purple: #7c3aed;
+            --accent-yellow: #d97706;
+            --accent-red: #dc2626;
+        }
+        
+        .chat-message {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Theme toggle button */
+        .theme-toggle {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--bg-quaternary);
+        }
+        
+        /* Markdown Styling using CSS Variables */
+        .markdown-content h1, .markdown-content h2, .markdown-content h3 {
+            color: var(--text-primary);
+            font-weight: bold;
+            margin: 1rem 0 0.5rem 0;
+        }
+        .markdown-content h1 { font-size: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
+        .markdown-content h2 { font-size: 1.3rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; }
+        .markdown-content h3 { font-size: 1.1rem; }
+        
+        .markdown-content p {
+            margin: 0.75rem 0;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        
+        .markdown-content code {
+            background-color: var(--bg-tertiary);
+            color: var(--accent-yellow);
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+        
+        .markdown-content pre {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .markdown-content pre code {
+            background: none;
+            color: var(--text-secondary);
+            padding: 0;
+            font-size: 0.875rem;
+        }
+        
+        .markdown-content blockquote {
+            border-left: 4px solid var(--accent-blue);
+            margin: 1rem 0;
+            padding-left: 1rem;
+            color: var(--text-tertiary);
+            font-style: italic;
+        }
+        
+        .markdown-content ul, .markdown-content ol {
+            margin: 0.75rem 0;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .markdown-content li {
+            margin: 0.25rem 0;
+        }
+        
+        .markdown-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+        }
+        
+        .markdown-content th, .markdown-content td {
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            text-align: left;
+            color: var(--text-secondary);
+        }
+        
+        .markdown-content th {
+            background-color: var(--bg-tertiary);
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+        
+        .markdown-content a {
+            color: var(--accent-blue);
+            text-decoration: underline;
+        }
+        
+        .markdown-content a:hover {
+            opacity: 0.8;
+        }
+        
+        .markdown-content strong {
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+        
+        .markdown-content em {
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        
+        /* Copy button for code blocks */
+        .code-block-wrapper {
+            position: relative;
+        }
+        
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: var(--bg-quaternary);
+            color: var(--text-secondary);
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .copy-button:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body style="background-color: var(--bg-primary); color: var(--text-primary); display: flex; flex-direction: column; height: 100vh; overflow: hidden;" class="h-screen overflow-hidden flex flex-col">
+    <!-- Header -->
+    <div style="background-color: var(--bg-secondary); border-bottom: 1px solid var(--border-color);" class="px-6 py-4 flex-shrink-0">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold" style="color: var(--text-primary);">NED Secure AI</h1>
+                <p class="text-sm" style="color: var(--text-muted);">AI-Powered Chat, File Processing & Web Search</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <!-- Model Selector -->
+                <div class="flex items-center gap-2">
+                    <span class="text-sm" style="color: var(--text-muted);">Model:</span>
+                    <select 
+                        id="modelSelector" 
+                        class="px-3 py-1 rounded border focus:outline-none focus:ring-2 transition-colors text-sm"
+                        style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary);"
+                        onchange="changeModel()"
+                    >
+                        <option value="qwen3">Qwen3 (Loading...)</option>
+                    </select>
+                </div>
+                
+                <button onclick="toggleTheme()" class="theme-toggle" title="Toggle Theme">
+                    <span id="themeIcon">🌙</span>
+                </button>
+                
+                <!-- Auth Section -->
+                <div id="authSection" class="flex items-center gap-4">
+                    <div id="loginForm" style="display: block;">
+                        <div class="flex items-center gap-2">
+                            <input 
+                                type="text" 
+                                id="username" 
+                                placeholder="Username" 
+                                class="px-3 py-2 rounded text-sm focus:outline-none focus:ring-2"
+                                style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); focus:ring-color: var(--accent-blue); width: 120px;"
+                                onkeypress="handleAuthKeyPress(event)"
+                            />
+                            <input 
+                                type="password" 
+                                id="password" 
+                                placeholder="Password" 
+                                class="px-3 py-2 rounded text-sm focus:outline-none focus:ring-2"
+                                style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); focus:ring-color: var(--accent-blue); width: 120px;"
+                                onkeypress="handleAuthKeyPress(event)"
+                            />
+                            <button 
+                                onclick="login()" 
+                                class="px-4 py-2 rounded text-sm font-medium text-white transition-colors"
+                                style="background-color: var(--accent-green);"
+                                onmouseover="this.style.opacity='0.9'"
+                                onmouseout="this.style.opacity='1'"
+                            >
+                                Login
+                            </button>
+                        </div>
+                    </div>
+                    <div id="logoutSection" style="display: none;">
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm" style="color: var(--text-primary);">Welcome, <span id="userDisplay"></span></span>
+                            <button 
+                                id="logoutButton"
+                                onclick="logout()"
+                                class="px-3 py-2 rounded text-sm font-medium text-white transition-colors"
+                                style="background-color: var(--accent-red);"
+                                onmouseover="this.style.opacity='0.9'"
+                                onmouseout="this.style.opacity='1'"
+                            >
+                                Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="connectionStatus" class="text-sm">
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                        <span>Checking connection...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Interface -->
+    <div class="flex flex-1 min-h-0">
+        <!-- Conversation History Sidebar -->
+        <div id="conversationSidebar" class="w-80 flex flex-col" style="background-color: var(--bg-secondary); border-right: 1px solid var(--border-color); display: none;">
+            <div class="p-4" style="border-bottom: 1px solid var(--border-color);">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold" style="color: var(--text-primary);">Chat History</h2>
+                    <button 
+                        onclick="toggleConversationSidebar()" 
+                        class="px-2 py-1 rounded text-xs"
+                        style="background-color: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border-color);"
+                        title="Hide conversation history"
+                    >
+                        ✕
+                    </button>
+                </div>
+                <div class="flex gap-2">
+                    <button 
+                        onclick="createNewConversation()" 
+                        class="flex-1 px-3 py-2 rounded text-sm font-medium text-white transition-colors"
+                        style="background-color: var(--accent-green);"
+                        onmouseover="this.style.opacity='0.9'"
+                        onmouseout="this.style.opacity='1'"
+                    >
+                        + New Chat
+                    </button>
+                </div>
+                <div class="mt-3">
+                    <input 
+                        type="text" 
+                        id="conversationSearch" 
+                        placeholder="Search conversations..." 
+                        class="w-full px-3 py-2 rounded text-sm focus:outline-none focus:ring-2"
+                        style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary);"
+                        oninput="searchConversations()"
+                    >
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto">
+                <div id="conversationList" class="p-2">
+                    <div class="text-center py-8 text-sm" style="color: var(--text-muted);">
+                        No conversations yet. Start a new chat!
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-4" style="border-top: 1px solid var(--border-color);">
+                <div id="conversationStats" class="text-xs space-y-1" style="color: var(--text-muted);">
+                    <div>Total conversations: <span id="totalConversations">0</span></div>
+                    <div>Total messages: <span id="totalMessages">0</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chat Section -->
+        <div class="flex-1 flex flex-col">
+            <div class="flex-1 flex flex-col m-4 rounded-lg min-h-0" style="background-color: var(--bg-secondary);">
+                <div class="p-4 flex-shrink-0 flex items-center justify-between" style="border-bottom: 1px solid var(--border-color);">
+                    <div class="flex items-center gap-3">
+                        <button 
+                            id="toggleHistoryButton"
+                            onclick="toggleConversationSidebar()" 
+                            class="px-3 py-1 rounded text-xs transition-colors flex items-center gap-1"
+                            style="background-color: var(--bg-quaternary); color: var(--text-secondary); border: 1px solid var(--border-color);"
+                            onmouseover="this.style.backgroundColor='var(--accent-blue)'; this.style.color='white'"
+                            onmouseout="this.style.backgroundColor='var(--bg-quaternary)'; this.style.color='var(--text-secondary)'"
+                            title="Toggle conversation history"
+                        >
+                            🗣️ History
+                        </button>
+                        <h2 class="text-xl font-semibold" style="color: var(--text-primary);">Chat</h2>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <!-- Export Dropdown -->
+                        <div class="relative" id="exportDropdown">
+                            <button 
+                                onclick="toggleExportDropdown()" 
+                                class="px-3 py-1 rounded text-xs transition-colors flex items-center gap-1"
+                                style="background-color: var(--bg-quaternary); color: var(--text-secondary); border: 1px solid var(--border-color);"
+                                onmouseover="this.style.backgroundColor='var(--accent-blue)'; this.style.color='white'"
+                                onmouseout="this.style.backgroundColor='var(--bg-quaternary)'; this.style.color='var(--text-secondary)'"
+                                title="Export conversation in different formats"
+                            >
+                                📤 Export ▼
+                            </button>
+                            <div 
+                                id="exportMenu" 
+                                class="absolute top-full left-0 mt-1 w-40 rounded shadow-lg z-10" 
+                                style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color); display: none;"
+                            >
+                                <button 
+                                    onclick="exportConversation('markdown')" 
+                                    class="w-full text-left px-3 py-2 text-xs hover:bg-opacity-80 transition-colors"
+                                    style="color: var(--text-primary); background-color: transparent;"
+                                    onmouseover="this.style.backgroundColor='var(--accent-blue)'; this.style.color='white'"
+                                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--text-primary)'"
+                                >
+                                    📄 Markdown (.md)
+                                </button>
+                                <button 
+                                    onclick="exportConversation('text')" 
+                                    class="w-full text-left px-3 py-2 text-xs hover:bg-opacity-80 transition-colors"
+                                    style="color: var(--text-primary); background-color: transparent;"
+                                    onmouseover="this.style.backgroundColor='var(--accent-blue)'; this.style.color='white'"
+                                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--text-primary)'"
+                                >
+                                    📝 Plain Text (.txt)
+                                </button>
+                                <button 
+                                    onclick="exportConversation('json')" 
+                                    class="w-full text-left px-3 py-2 text-xs hover:bg-opacity-80 transition-colors"
+                                    style="color: var(--text-primary); background-color: transparent;"
+                                    onmouseover="this.style.backgroundColor='var(--accent-blue)'; this.style.color='white'"
+                                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--text-primary)'"
+                                >
+                                    🔧 JSON (Technical)
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Import Button -->
+                        <button 
+                            onclick="triggerImport()" 
+                            class="px-3 py-1 rounded text-xs transition-colors"
+                            style="background-color: var(--bg-quaternary); color: var(--text-secondary); border: 1px solid var(--border-color);"
+                            onmouseover="this.style.backgroundColor='var(--accent-green)'; this.style.color='white'"
+                            onmouseout="this.style.backgroundColor='var(--bg-quaternary)'; this.style.color='var(--text-secondary)'"
+                            title="Import conversation from JSON, Markdown, or Text file"
+                        >
+                            📥 Import
+                        </button>
+                        
+                        <!-- Hidden file input for import -->
+                        <input 
+                            type="file" 
+                            id="importFileInput" 
+                            accept=".json,.md,.txt" 
+                            style="display: none;" 
+                            onchange="importConversation()"
+                        >
+                        
+                        <!-- Clear Button -->
+                        <button 
+                            onclick="clearChat()" 
+                            class="px-3 py-1 rounded text-xs transition-colors"
+                            style="background-color: var(--bg-quaternary); color: var(--text-secondary); border: 1px solid var(--border-color);"
+                            onmouseover="this.style.backgroundColor='var(--accent-red)'; this.style.color='white'"
+                            onmouseout="this.style.backgroundColor='var(--bg-quaternary)'; this.style.color='var(--text-secondary)'"
+                            title="Clear all chat messages"
+                        >
+                            🗑️ Clear
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Chat Messages -->
+                <div id="chatMessages" class="flex-1 overflow-y-auto p-4 min-h-0" style="background-color: var(--bg-primary);">
+                    <div class="auth-required-message text-center p-8">
+                        <div class="inline-block px-6 py-4 rounded-lg" style="background-color: var(--bg-tertiary); border: 2px solid var(--accent-blue);">
+                            <div class="text-lg font-semibold mb-2" style="color: var(--accent-blue);">🔐 Authentication Required</div>
+                            <div class="text-sm" style="color: var(--text-secondary);">Please login with your credentials to access the AI chat interface.</div>
+                            <div class="text-xs mt-2" style="color: var(--text-muted);">For testing, use: admin/admin</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="p-4 flex-shrink-0" style="background-color: var(--bg-secondary); border-top: 1px solid var(--border-color);">
+                    <div class="flex gap-3">
+                        <input 
+                            type="text" 
+                            id="messageInput" 
+                            placeholder="Please login to start chatting..." 
+                            class="flex-1 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-colors"
+                            style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); focus:ring-color: var(--accent-blue); opacity: 0.5;"
+                            onkeypress="handleKeyPress(event)"
+                            disabled
+                        >
+                        <button 
+                            id="sendButton"
+                            onclick="sendMessage()" 
+                            class="px-8 py-3 rounded-lg focus:outline-none focus:ring-2 transition-colors"
+                            style="background-color: var(--accent-blue); color: white; focus:ring-color: var(--accent-blue); opacity: 0.5;"
+                            onmouseover="this.style.opacity='0.9'"
+                            onmouseout="this.style.opacity='1'"
+                            disabled
+                        >
+                            Send
+                        </button>
+                        
+                        <button 
+                            id="stopButton"
+                            onclick="stopChat()" 
+                            class="px-8 py-3 rounded-lg focus:outline-none focus:ring-2 transition-colors"
+                            style="background-color: var(--accent-red); color: white; focus:ring-color: var(--accent-red); display: none;"
+                            onmouseover="this.style.opacity='0.9'"
+                            onmouseout="this.style.opacity='1'"
+                        >
+                            Stop
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools Section -->
+        <div class="w-80 flex flex-col" style="background-color: var(--bg-secondary); border-left: 1px solid var(--border-color);">
+            <div class="p-4" style="border-bottom: 1px solid var(--border-color);">
+                <h2 class="text-lg font-semibold" style="color: var(--text-primary);">Tools</h2>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-4 space-y-6">
+                <!-- File Upload Section -->
+                <div class="space-y-4">
+                    <!-- File Upload Zone -->
+                    <div 
+                        id="fileUploadZone" 
+                        class="border-2 border-dashed rounded-lg p-6 text-center transition-colors cursor-pointer"
+                        style="border-color: var(--border-color); color: var(--text-secondary);"
+                        onmouseover="this.style.borderColor='var(--accent-blue)'"
+                        onmouseout="this.style.borderColor='var(--border-color)'"
+                        onclick="document.getElementById('fileInput').click()"
+                    >
+                        <div class="space-y-2">
+                            <svg class="mx-auto h-12 w-12" style="color: var(--text-muted); width: 48px !important; height: 48px !important; max-width: 48px !important; max-height: 48px !important;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                            <div>
+                                <p class="text-lg font-medium">Drop files here or click to upload</p>
+                                <p class="text-sm" style="color: var(--text-muted);">
+                                    Supports PDF, DOCX, TXT, Images (JPG, PNG, GIF, TIFF, BMP)
+                                </p>
+                                <p class="text-xs" style="color: var(--text-muted);">
+                                    Max 50MB per file, 10 files per batch
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Input (Hidden) -->
+                    <input 
+                        type="file" 
+                        id="fileInput" 
+                        multiple
+                        accept=".pdf,.docx,.txt,.jpg,.jpeg,.png,.gif,.tiff,.bmp"
+                        class="hidden"
+                        onchange="handleFileSelection()"
+                    >
+
+                    <!-- Analysis Mode Selection -->
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium" style="color: var(--text-secondary);">Analysis Mode:</label>
+                        <select 
+                            id="analysisMode" 
+                            class="w-full px-3 py-2 rounded-lg focus:outline-none focus:ring-2 transition-colors"
+                            style="background-color: var(--bg-quaternary); border: 1px solid var(--border-color); color: var(--text-primary);"
+                        >
+                            <option value="quick">Quick Analysis (Fast)</option>
+                            <option value="detailed">Detailed Analysis (Comprehensive)</option>
+                            <option value="semantic">Semantic Analysis (Deep Understanding)</option>
+                            <option value="structured">Structured Analysis (Document Structure)</option>
+                        </select>
+                    </div>
+
+                    <!-- Upload Button -->
+                    <button 
+                        onclick="uploadFiles()" 
+                        id="uploadButton"
+                        disabled
+                        class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        style="background-color: var(--accent-green); color: white;"
+                        onmouseover="if(!this.disabled) this.style.opacity='0.9'"
+                        onmouseout="if(!this.disabled) this.style.opacity='1'"
+                    >
+                        <span id="uploadButtonText">Select Files to Upload</span>
+                    </button>
+
+                    <!-- Progress Bar -->
+                    <div id="uploadProgress" class="hidden space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span style="color: var(--text-secondary);">Processing files...</span>
+                            <span id="progressText" style="color: var(--text-secondary);">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2" style="background-color: var(--bg-quaternary);">
+                            <div id="progressBar" class="h-2 rounded-full transition-all duration-300" style="background-color: var(--accent-blue); width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Upload Status -->
+                    <div id="uploadStatus" class="text-sm" style="color: var(--text-tertiary);"></div>
+
+                    <!-- File List -->
+                    <div id="fileList" class="space-y-2 hidden">
+                        <h4 class="text-sm font-medium" style="color: var(--text-secondary);">Selected Files:</h4>
+                        <div id="fileItems" class="space-y-1"></div>
+                    </div>
+                </div>
+
+                <!-- Web Search -->
+                <div class="rounded-lg p-6" style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color);">
+                    <h3 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">Web Search</h3>
+                    <div class="space-y-4">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Search query..." 
+                            class="w-full px-3 py-3 rounded-lg focus:outline-none focus:ring-2 transition-colors"
+                            style="background-color: var(--bg-quaternary); border: 1px solid var(--border-color); color: var(--text-primary);"
+                            onkeypress="handleSearchKeyPress(event)"
+                        >
+                        <button 
+                            onclick="performSearch()" 
+                            class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-colors"
+                            style="background-color: var(--accent-purple); color: white;"
+                            onmouseover="this.style.opacity='0.9'"
+                            onmouseout="this.style.opacity='1'"
+                        >
+                            Search Web
+                        </button>
+                        <div id="searchStatus" class="text-sm" style="color: var(--text-tertiary);"></div>
+                    </div>
+                </div>
+
+                <!-- Model Info -->
+                <div class="rounded-lg p-6" style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color);">
+                    <h3 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">Model Info</h3>
+                    <div class="space-y-2 text-sm" style="color: var(--text-tertiary);">
+                        <div class="flex justify-between">
+                            <span>Model:</span>
+                            <span style="color: var(--accent-blue);">Qwen3</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Context:</span>
+                            <span style="color: var(--accent-blue);">8192 tokens</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Max Response:</span>
+                            <span style="color: var(--accent-blue);">4000 tokens</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Context Usage:</span>
+                            <span id="contextUsage" style="color: var(--accent-green);">0%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Server:</span>
+                            <span style="color: var(--accent-blue);">GPUStack</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cache buster: 2025-06-29-21:50:52
+        // DECLARE ALL VARIABLES FIRST - before any functions that might reference them
+        const API_BASE = window.CONFIG ? window.CONFIG.BACKEND_URL : 'http://localhost:8001';
+        
+        let conversationContext = [];
+        let currentModel = localStorage.getItem('selectedModel') || 'qwen3';
+        let availableModels = [];
+        
+        // Authentication state
+        let token = localStorage.getItem('authToken') || null;
+        let refreshToken = localStorage.getItem('refreshToken') || null;
+        
+        // Streaming state tracking
+        let currentAbortController = null;
+        let isStreaming = false;
+        
+        // Response metrics tracking
+        let responseMetrics = {
+            startTime: null,
+            firstTokenTime: null,
+            endTime: null,
+            totalTokens: 0,
+            isFirstToken: true
+        };
+        
+        // Additional variables that might be referenced
+        let currentConversationId = null;
+        let conversationHistoryVisible = false;
+        
+        // Make variables accessible on window object for debugging
+        window.API_BASE = API_BASE;
+        window.token = token;
+        window.isStreaming = isStreaming;
+        window.conversationContext = conversationContext;
+        window.currentModel = currentModel;
+        window.availableModels = availableModels;
+        
+        console.log('All variables defined successfully');
+        
+        // Check backend connection and load models on page load
+        window.onload = function() {
+            checkConnection();
+            loadAvailableModels();
+        };
+
+        async function checkConnection() {
+            try {
+                const response = await fetch(`${API_BASE}/`);
+                const data = await response.json();
+                
+                if (data.message) {
+                    document.getElementById('connectionStatus').innerHTML = `
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                            <span class="text-green-400">Backend Connected</span>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('connectionStatus').innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                        <span class="text-red-400">Backend Disconnected</span>
+                    </div>
+                `;
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function handleSearchKeyPress(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        }
+
+        // Calculate dynamic max_tokens based on model's context window and current conversation
+        function calculateMaxTokens() {
+            const currentModelData = availableModels.find(m => m.name === currentModel);
+            if (!currentModelData || !currentModelData.meta?.n_ctx) {
+                return 2000; // conservative fallback
+            }
+            
+            const contextWindow = currentModelData.meta.n_ctx;
+            const maxSafeTokens = currentModelData.meta?.max_safe_tokens || Math.floor(contextWindow * 0.8);
+            
+            // Estimate tokens in current conversation (rough approximation: 4 chars per token)
+            let estimatedPromptTokens = 0;
+            conversationContext.forEach(msg => {
+                estimatedPromptTokens += Math.ceil(msg.content.length / 4);
+            });
+            
+            // Add some buffer for the current user message and system prompts
+            estimatedPromptTokens += 200;
+            
+            // Calculate available tokens for response (use full safe limit)
+            const availableTokens = Math.max(0, maxSafeTokens - estimatedPromptTokens);
+            
+            // Set reasonable bounds - use more of the context window for large models
+            const minTokens = 500;
+            const maxTokens = Math.min(availableTokens, maxSafeTokens);
+            
+            // For very large context windows, allow higher response limits
+            const finalMaxTokens = Math.max(minTokens, maxTokens);
+            
+            // Update context usage display
+            updateContextUsage(estimatedPromptTokens, contextWindow, finalMaxTokens);
+            
+            return finalMaxTokens;
+        }
+        
+        // Update context usage display
+        function updateContextUsage(promptTokens, contextWindow, responseTokens) {
+            const totalUsage = promptTokens + responseTokens;
+            const usagePercent = Math.round((totalUsage / contextWindow) * 100);
+            const usageElement = document.getElementById('contextUsage');
+            
+            if (usageElement) {
+                let color = 'var(--accent-green)';
+                if (usagePercent > 80) {
+                    color = 'var(--accent-red)';
+                } else if (usagePercent > 60) {
+                    color = 'var(--accent-yellow)';
+                } else if (usagePercent > 40) {
+                    color = 'var(--accent-orange)';
+                }
+                
+                usageElement.style.color = color;
+                usageElement.textContent = `${usagePercent}% (${totalUsage.toLocaleString()}/${contextWindow.toLocaleString()})`;
+            }
+        }
+        
+        // Update context usage display based on current conversation state
+        function updateContextUsageDisplay() {
+            const currentModelData = availableModels.find(m => m.name === currentModel);
+            if (!currentModelData || !currentModelData.meta?.n_ctx) {
+                return;
+            }
+            
+            const contextWindow = currentModelData.meta.n_ctx;
+            
+            // Calculate current prompt tokens
+            let estimatedPromptTokens = 0;
+            conversationContext.forEach(msg => {
+                estimatedPromptTokens += Math.ceil(msg.content.length / 4);
+            });
+            estimatedPromptTokens += 200; // Buffer for user message and system prompts
+            
+            // Calculate estimated response tokens (use a reasonable default)
+            const estimatedResponseTokens = Math.min(4000, Math.floor(contextWindow * 0.3));
+            
+            // Update the display
+            updateContextUsage(estimatedPromptTokens, contextWindow, estimatedResponseTokens);
+            
+            // Also update the model info panel if it exists
+            updateModelInfo();
+        }
+
+        function stopChat() {
+            if (currentAbortController) {
+                currentAbortController.abort();
+                currentAbortController = null;
+            }
+            
+            isStreaming = false;
+            updateButtonStates();
+            
+            // Add stop message to chat
+            addMessageToChat('system', 'Chat stopped by user.');
+        }
+        
+        function updateButtonStates() {
+            const sendButton = document.getElementById('sendButton');
+            const stopButton = document.getElementById('stopButton');
+            const messageInput = document.getElementById('messageInput');
+            
+            if (isStreaming) {
+                // During streaming, show stop button and disable input
+                sendButton.style.display = 'none';
+                stopButton.style.display = 'flex';
+                stopButton.disabled = false;
+                stopButton.style.opacity = '1';
+                messageInput.disabled = true;
+                messageInput.style.opacity = '0.5';
+            } else {
+                // When not streaming, show send button and handle auth state
+                sendButton.style.display = 'flex';
+                stopButton.style.display = 'none';
+                
+                // Handle input and send button based on authentication
+                if (token) {
+                    messageInput.disabled = false;
+                    messageInput.style.opacity = '1';
+                    sendButton.disabled = false;
+                    sendButton.style.opacity = '1';
+                } else {
+                    messageInput.disabled = true;
+                    messageInput.style.opacity = '0.5';
+                    sendButton.disabled = true;
+                    sendButton.style.opacity = '0.5';
+                }
+            }
+        }
+
+        async function sendMessage() {
+            // Check authentication first
+            if (!token) {
+                addMessageToChat('system', '🔐 Please login to send messages.');
+                return;
+            }
+            
+            console.log('sendMessage called with token:', token ? 'present' : 'missing');
+            console.log('API_BASE:', API_BASE);
+            
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message || isStreaming) return;
+
+            // Set streaming state
+            isStreaming = true;
+            updateButtonStates();
+            
+            // Initialize response metrics
+            responseMetrics = {
+                startTime: performance.now(),
+                firstTokenTime: null,
+                endTime: null,
+                totalTokens: 0,
+                isFirstToken: true
+            };
+            
+            // Create new AbortController for this request
+            currentAbortController = new AbortController();
+
+            // Auto-create conversation if none is active and we have a message
+            if (!currentConversationId) {
+                const newConversation = await createNewConversation(message);
+                if (!newConversation) {
+                    // If conversation creation failed, stop processing
+                    isStreaming = false;
+                    currentAbortController = null;
+                    updateButtonStates();
+                    return;
+                }
+            }
+
+            // Add user message to chat
+            addMessageToChat('user', message);
+            input.value = '';
+
+            // Create streaming message placeholder
+            const streamingMessageId = addStreamingMessage('assistant');
+            let fullResponse = '';
+
+            // Calculate dynamic max_tokens
+            const maxTokens = calculateMaxTokens();
+
+            // Debug: Log conversation context
+            console.log('Conversation context being sent to AI:', conversationContext);
+            console.log('User message:', message);
+            
+            // Debug conversation context
+            debugConversationContext();
+            
+            console.log('About to manage conversation context...');
+            // Manage conversation context before sending
+            manageConversationContext();
+            
+            console.log('About to calculate max tokens...');
+            console.log('Max tokens calculated:', maxTokens);
+            
+            console.log('About to create streaming message...');
+            console.log('Streaming message ID:', streamingMessageId);
+
+            try {
+                // Try streaming first
+                console.log('Making streaming request to:', `${API_BASE}/api/inference/stream`);
+                console.log('Request headers:', getAuthHeaders());
+                console.log('Request body:', {
+                    model: currentModel,
+                    messages: [
+                        ...conversationContext,
+                        { role: "user", content: message }
+                    ],
+                    temperature: 0.7,
+                    max_tokens: maxTokens,
+                    repetition_penalty: 1.1,
+                    frequency_penalty: 0.3,
+                    presence_penalty: 0.1,
+                    top_p: 0.9
+                });
+                
+                console.log('About to make fetch request...');
+                const response = await fetch(`${API_BASE}/api/inference/stream`, {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    signal: currentAbortController.signal,
+                    body: JSON.stringify({
+                        model: currentModel,
+                        messages: [
+                            ...conversationContext,
+                            { role: "user", content: message }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: maxTokens,
+                        repetition_penalty: 1.1,
+                        frequency_penalty: 0.3,
+                        presence_penalty: 0.1,
+                        top_p: 0.9
+                    })
+                });
+                
+                console.log('Fetch request completed');
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                console.log('Response body exists:', !!response.body);
+
+                if (response.ok && response.body) {
+                    console.log('Starting to process streaming response...');
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder();
+                    
+                    try {
+                        while (true) {
+                            // Check if request was aborted
+                            if (currentAbortController.signal.aborted) {
+                                console.log('Request was aborted, stopping stream processing');
+                                reader.cancel();
+                                break;
+                            }
+                            
+                            const { value, done } = await reader.read();
+                            if (done) {
+                                console.log('Stream processing complete');
+                                break;
+                            }
+                            
+                            const chunk = decoder.decode(value);
+                            console.log('Received chunk:', chunk);
+                            const lines = chunk.split('\n');
+                            
+                            for (const line of lines) {
+                                if (line.startsWith('data: ')) {
+                                    const data = line.slice(6).trim();
+                                    console.log('Processing data line:', data);
+                                    
+                                    if (data === '[DONE]') {
+                                        console.log('Received [DONE] signal');
+                                        break;
+                                    }
+                                    
+                                    if (data) {
+                                        try {
+                                            const parsed = JSON.parse(data);
+                                            const content = parsed.choices?.[0]?.delta?.content || '';
+                                            console.log('Parsed content:', content);
+                                            
+                                            if (content) {
+                                                // Track first token time
+                                                if (responseMetrics.isFirstToken) {
+                                                    responseMetrics.firstTokenTime = performance.now();
+                                                    responseMetrics.isFirstToken = false;
+                                                    console.log('First token received');
+                                                }
+                                                
+                                                // Count tokens (approximate)
+                                                responseMetrics.totalTokens += content.length;
+                                                
+                                                fullResponse += content;
+                                                console.log('Updating streaming message with:', fullResponse.substring(0, 50) + '...');
+                                                updateStreamingMessage(streamingMessageId, fullResponse);
+                                            }
+                                        } catch (e) {
+                                            console.log('JSON parse error:', e);
+                                            // Ignore JSON parse errors
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // Capture end time and finalize metrics
+                        responseMetrics.endTime = performance.now();
+                        
+                        // Finalize the streaming message (remove cursor)
+                        finalizeStreamingMessage(streamingMessageId, fullResponse);
+                        
+                        // Display response metrics
+                        displayResponseMetrics(streamingMessageId);
+                        
+                        // Save messages to conversation history
+                        await saveMessageToConversation('user', message);
+                        await saveMessageToConversation('assistant', fullResponse);
+                        
+                        // Update conversation context with complete response
+                        conversationContext.push(
+                            { role: "user", content: message },
+                            { role: "assistant", content: fullResponse }
+                        );
+                        
+                        // Keep only last 10 messages for context
+                        if (conversationContext.length > 20) {
+                            conversationContext = conversationContext.slice(-20);
+                        }
+                        
+                        // Update context usage display after conversation changes
+                        updateContextUsageDisplay();
+                        
+                        // Update conversation list if visible
+                        if (conversationHistoryVisible) {
+                            loadConversations();
+                        }
+                        
+                    } catch (streamError) {
+                        console.error('Streaming error:', streamError);
+                        if (!currentAbortController.signal.aborted) {
+                            // Fall back to non-streaming only if not aborted
+                            await sendNonStreamingMessage(message, streamingMessageId);
+                        } else {
+                            removeMessage(streamingMessageId);
+                        }
+                    }
+                } else {
+                    // Fall back to non-streaming
+                    await sendNonStreamingMessage(message, streamingMessageId);
+                }
+            } catch (error) {
+                if (!currentAbortController.signal.aborted) {
+                    removeMessage(streamingMessageId);
+                    addMessageToChat('system', `Error: ${error.message}`);
+                } else {
+                    removeMessage(streamingMessageId);
+                }
+            } finally {
+                // Always reset streaming state
+                isStreaming = false;
+                currentAbortController = null;
+                updateButtonStates();
+            }
+        }
+        
+        async function sendNonStreamingMessage(message, streamingMessageId) {
+            try {
+                removeMessage(streamingMessageId);
+                
+                // Calculate dynamic max_tokens
+                const maxTokens = calculateMaxTokens();
+                
+                // Debug: Log conversation context for non-streaming
+                console.log('Non-streaming conversation context:', conversationContext);
+                
+                // Manage conversation context before sending
+                manageConversationContext();
+                
+                // Debug conversation context
+                debugConversationContext();
+                
+                const response = await fetch(`${API_BASE}/api/inference/infer`, {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({
+                        model: currentModel,
+                        messages: [
+                            ...conversationContext,
+                            { role: "user", content: message }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: maxTokens,
+                        repetition_penalty: 1.1,
+                        frequency_penalty: 0.3,
+                        presence_penalty: 0.1,
+                        top_p: 0.9
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const aiResponse = data.choices?.[0]?.message?.content || 'No response received';
+                    
+                    addMessageToChat('assistant', aiResponse);
+                    
+                    conversationContext.push(
+                        { role: "user", content: message },
+                        { role: "assistant", content: aiResponse }
+                    );
+                    
+                    if (conversationContext.length > 20) {
+                        conversationContext = conversationContext.slice(-20);
+                    }
+                    
+                    // Update context usage display after conversation changes
+                    updateContextUsageDisplay();
+                } else {
+                    addMessageToChat('system', 'Error: Could not connect to GPUStack');
+                }
+            } catch (error) {
+                addMessageToChat('system', `Error: ${error.message}`);
+            }
+        }
+
+        // File handling functions
+        let selectedFiles = [];
+
+        function handleFileSelection() {
+            const fileInput = document.getElementById('fileInput');
+            const uploadButton = document.getElementById('uploadButton');
+            const uploadButtonText = document.getElementById('uploadButtonText');
+            const fileList = document.getElementById('fileList');
+            const fileItems = document.getElementById('fileItems');
+
+            selectedFiles = Array.from(fileInput.files);
+            
+            if (selectedFiles.length > 0) {
+                uploadButton.disabled = false;
+                uploadButtonText.textContent = `Upload ${selectedFiles.length} File${selectedFiles.length > 1 ? 's' : ''}`;
+                
+                // Show file list
+                fileList.classList.remove('hidden');
+                fileItems.innerHTML = '';
+                
+                selectedFiles.forEach((file, index) => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'flex items-center justify-between p-2 rounded';
+                    fileItem.style.backgroundColor = 'var(--bg-quaternary)';
+                    
+                    const fileInfo = document.createElement('div');
+                    fileInfo.className = 'flex-1';
+                    fileInfo.innerHTML = `
+                        <div class="text-sm font-medium" style="color: var(--text-primary);">${file.name}</div>
+                        <div class="text-xs" style="color: var(--text-muted);">${(file.size / 1024 / 1024).toFixed(2)} MB</div>
+                    `;
+                    
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'ml-2 px-2 py-1 text-xs rounded';
+                    removeBtn.style.backgroundColor = 'var(--accent-red)';
+                    removeBtn.style.color = 'white';
+                    removeBtn.textContent = 'Remove';
+                    removeBtn.onclick = () => removeFile(index);
+                    
+                    fileItem.appendChild(fileInfo);
+                    fileItem.appendChild(removeBtn);
+                    fileItems.appendChild(fileItem);
+                });
+            } else {
+                uploadButton.disabled = true;
+                uploadButtonText.textContent = 'Select Files to Upload';
+                fileList.classList.add('hidden');
+            }
+        }
+
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            handleFileSelection();
+        }
+
+        async function uploadFiles() {
+            // Check authentication first
+            if (!token) {
+                updateStatus('uploadStatus', 'Please login to upload files', 'text-red-400');
+                return;
+            }
+            
+            if (selectedFiles.length === 0) {
+                updateStatus('uploadStatus', 'Please select files', 'text-red-400');
+                return;
+            }
+
+            // Check file size on frontend (50MB limit)
+            if (selectedFiles.some(file => file.size > 50 * 1024 * 1024)) {
+                updateStatus('uploadStatus', 'File too large (max 50MB)', 'text-red-400');
+                return;
+            }
+
+            // Show progress
+            const progressDiv = document.getElementById('uploadProgress');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            progressDiv.classList.remove('hidden');
+
+            updateStatus('uploadStatus', 'Processing files...', 'text-blue-400');
+
+            try {
+                const analysisMode = document.getElementById('analysisMode').value;
+                const formData = new FormData();
+                
+                selectedFiles.forEach(file => {
+                    // Use 'file' for single file upload, 'files' for batch upload
+                    const paramName = selectedFiles.length === 1 ? 'file' : 'files';
+                    formData.append(paramName, file);
+                });
+                formData.append('analysis_mode', analysisMode);
+                formData.append('model_name', currentModel);
+
+                // Determine endpoint based on file count
+                const endpoint = selectedFiles.length === 1 ? '/api/files/upload' : '/api/files/upload/batch';
+                
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': token ? `Bearer ${token}` : undefined
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Enhanced file processing result:', data);
+                    
+                    // Update progress
+                    progressBar.style.width = '100%';
+                    progressText.textContent = '100%';
+                    
+                    // Create detailed status message
+                    let statusMessage = '';
+                    if (selectedFiles.length === 1) {
+                        const structureInfo = data.structure_info || {};
+                        const aiInsights = data.ai_insights || {};
+                        
+                        let statusDetails = [];
+                        if (structureInfo.word_count) statusDetails.push(`${structureInfo.word_count} words`);
+                        if (structureInfo.page_count) statusDetails.push(`${structureInfo.page_count} pages`);
+                        if (aiInsights.summary) statusDetails.push('AI analysis applied');
+                        
+                        statusMessage = statusDetails.length > 0 
+                            ? `File processed successfully! (${statusDetails.join(', ')})`
+                            : 'File processed successfully!';
+                    } else {
+                        statusMessage = `Batch processed: ${data.successful_files}/${data.total_files} files successfully`;
+                    }
+                    
+                    updateStatus('uploadStatus', statusMessage, 'text-green-400');
+                    
+                    // Create enhanced file message with debugging
+                    console.log('Creating file message with data:', data);
+                    const fileMessage = createEnhancedFileMessage(data);
+                    console.log('Created file message:', fileMessage);
+                    addMessageToChat('system', fileMessage);
+                    
+                    // Add a helpful message to let user know they can ask questions
+                    addMessageToChat('system', `✅ Document "${data.filename}" has been processed and is now available for questions. You can ask me anything about this document!`);
+                    
+                    // Add content to conversation context
+                    if (data.content) {
+                        console.log('Adding file content to conversation context:', {
+                            filename: data.filename,
+                            contentLength: data.content.length,
+                            hasAIInsights: !!(data.ai_insights && data.ai_insights.summary)
+                        });
+                        // Create a single, well-structured system message with all file information
+                        let fileContextMessage = `=== DOCUMENT CONTEXT ===\n`;
+                        fileContextMessage += `Filename: ${data.filename}\n`;
+                        fileContextMessage += `Type: ${data.content_type}\n`;
+                        
+                        // Add metadata if available
+                        if (data.metadata) {
+                            if (data.metadata.title) fileContextMessage += `Title: ${data.metadata.title}\n`;
+                            if (data.metadata.author) fileContextMessage += `Author: ${data.metadata.author}\n`;
+                            if (data.metadata.word_count) fileContextMessage += `Word Count: ${data.metadata.word_count}\n`;
+                            if (data.metadata.page_count) fileContextMessage += `Pages: ${data.metadata.page_count}\n`;
+                        }
+                        
+                        // Add AI insights if available
+                        if (data.ai_insights && data.ai_insights.summary) {
+                            fileContextMessage += `\n=== DOCUMENT SUMMARY ===\n${data.ai_insights.summary}\n`;
+                            
+                            if (data.ai_insights.key_points && data.ai_insights.key_points.length > 0) {
+                                fileContextMessage += `\n=== KEY POINTS ===\n`;
+                                data.ai_insights.key_points.forEach((point, index) => {
+                                    fileContextMessage += `${index + 1}. ${point}\n`;
+                                });
+                            }
+                            
+                            if (data.ai_insights.topics && data.ai_insights.topics.length > 0) {
+                                fileContextMessage += `\n=== TOPICS ===\n${data.ai_insights.topics.join(', ')}\n`;
+                            }
+                        }
+                        
+                        // Add the main document content
+                        fileContextMessage += `\n=== DOCUMENT CONTENT ===\n${data.content}\n`;
+                        fileContextMessage += `\n=== END DOCUMENT ===\n`;
+                        fileContextMessage += `\nYou now have access to this document. When asked questions about it, refer to the content above and provide detailed, accurate answers based on the document information.`;
+                        
+                        // Add as a single system message to conversation context
+                        conversationContext.push({
+                            role: "system",
+                            content: fileContextMessage
+                        });
+                        
+                        // Keep conversation context manageable - prioritize file content
+                        if (conversationContext.length > 15) {
+                            // Keep the most recent file context and recent conversation
+                            const fileMessages = conversationContext.filter(msg => 
+                                msg.role === "system" && msg.content.includes("=== DOCUMENT CONTEXT ===")
+                            );
+                            const recentMessages = conversationContext.filter(msg => 
+                                msg.role !== "system" || !msg.content.includes("=== DOCUMENT CONTEXT ===")
+                            ).slice(-10);
+                            
+                            conversationContext = [...fileMessages, ...recentMessages];
+                        }
+                        
+                        // Debug logging
+                        console.log('Added file to conversation context:', {
+                            filename: data.filename,
+                            contextLength: fileContextMessage.length,
+                            totalContextMessages: conversationContext.length
+                        });
+                        
+                        // Update context usage display after file upload
+                        updateContextUsageDisplay();
+                    }
+                    
+                    // Clear files
+                    selectedFiles = [];
+                    document.getElementById('fileInput').value = '';
+                    handleFileSelection();
+                    
+                } else {
+                    const errorData = await response.json().catch(() => ({}));
+                    const errorMessage = errorData.detail || 'Upload failed';
+                    updateStatus('uploadStatus', errorMessage, 'text-red-400');
+                }
+            } catch (error) {
+                updateStatus('uploadStatus', `Error: ${error.message}`, 'text-red-400');
+            } finally {
+                // Hide progress after a delay
+                setTimeout(() => {
+                    document.getElementById('uploadProgress').classList.add('hidden');
+                    progressBar.style.width = '0%';
+                    progressText.textContent = '0%';
+                }, 2000);
+            }
+        }
+        
+        function createEnhancedFileMessage(data) {
+            const { filename, content_type, metadata, structure_info, processing_notes } = data;
+            
+            let message = `**File Processed: ${filename}**\n\n`;
+            
+            // Add file type and basic info
+            message += `📄 **Type:** ${content_type}\n`;
+            
+            // Add metadata if available - with safe property access
+            if (metadata && metadata.title) message += `📝 **Title:** ${metadata.title}\n`;
+            if (metadata && metadata.author) message += `👤 **Author:** ${metadata.author}\n`;
+            
+            // Add structure information
+            if (structure_info) {
+                const details = [];
+                if (structure_info.word_count) details.push(`${structure_info.word_count} words`);
+                if (structure_info.page_count) details.push(`${structure_info.page_count} pages`);
+                if (structure_info.has_headers) details.push('structured sections');
+                if (structure_info.has_tables) details.push('data tables');
+                
+                if (details.length > 0) {
+                    message += `📊 **Content:** ${details.join(', ')}\n`;
+                }
+            }
+            
+            // Add processing notes
+            if (processing_notes && processing_notes.length > 0) {
+                message += `\n✅ **Processing:**\n`;
+                processing_notes.forEach(note => {
+                    message += `• ${note}\n`;
+                });
+            }
+            
+            message += `\n*The file content has been analyzed and optimized for AI interaction. You can now ask questions about this document.*`;
+            
+            return message;
+        }
+
+        async function performSearch() {
+            // Check authentication first
+            if (!token) {
+                updateStatus('searchStatus', 'Please login to use search', 'text-red-400');
+                return;
+            }
+            
+            const searchInput = document.getElementById('searchInput');
+            const query = searchInput.value.trim();
+            
+            if (!query) {
+                updateStatus('searchStatus', 'Please enter a search query', 'text-red-400');
+                return;
+            }
+
+            updateStatus('searchStatus', 'Searching...', 'text-blue-400');
+
+            try {
+                const response = await fetch(`${API_BASE}/api/tools/search`, {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({ q: query, model: currentModel })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Search response:', data); // Debug
+                    updateStatus('searchStatus', 'Search completed!', 'text-green-400');
+                    
+                    // Extract search result data
+                    const searchResult = data.result;
+                    const results = searchResult.results || [];
+                    const llmSummary = searchResult.llm_summary || null;
+                    const processingStatus = searchResult.processing_status || null;
+                    
+                    console.log('Results:', results.length, 'LLM:', !!llmSummary, 'Status:', processingStatus); // Debug
+                    
+                    // Display enhanced search results with LLM processing
+                    displaySearchResults(results, llmSummary, processingStatus);
+                    
+                    // Create enhanced context summary for AI
+                    let contextSummary;
+                    if (llmSummary && processingStatus === 'success') {
+                        // Use the LLM-processed summary as primary context
+                        contextSummary = `=== WEB SEARCH CONTEXT ===\n`;
+                        contextSummary += `Query: "${query}"\n`;
+                        contextSummary += `Results: ${results.length} sources found\n`;
+                        contextSummary += `\n=== SEARCH SUMMARY ===\n${llmSummary}\n`;
+                        contextSummary += `\n=== END SEARCH ===\n`;
+                        contextSummary += `\nYou now have access to this web search information. When asked questions about this topic, refer to the search results above and provide detailed, accurate answers based on the information found.`;
+                    } else {
+                        // Fall back to basic summary
+                        const basicSummary = createSearchContextSummary(results);
+                        contextSummary = `=== WEB SEARCH CONTEXT ===\n`;
+                        contextSummary += `Query: "${query}"\n`;
+                        contextSummary += `Results: ${results.length} sources found\n`;
+                        contextSummary += `\n=== SEARCH RESULTS ===\n${basicSummary}\n`;
+                        contextSummary += `\n=== END SEARCH ===\n`;
+                        contextSummary += `\nYou now have access to this web search information. When asked questions about this topic, refer to the search results above and provide detailed, accurate answers based on the information found.`;
+                    }
+                    
+                    conversationContext.push({
+                        role: "system",
+                        content: contextSummary
+                    });
+                    
+                    // Keep conversation context manageable - prioritize search content
+                    if (conversationContext.length > 15) {
+                        // Keep the most recent search context and recent conversation
+                        const searchMessages = conversationContext.filter(msg => 
+                            msg.role === "system" && msg.content.includes("=== WEB SEARCH CONTEXT ===")
+                        );
+                        const recentMessages = conversationContext.filter(msg => 
+                            msg.role !== "system" || !msg.content.includes("=== WEB SEARCH CONTEXT ===")
+                        ).slice(-10);
+                        
+                                            conversationContext = [...searchMessages, ...recentMessages];
+                }
+                
+                // Update context usage display after search
+                updateContextUsageDisplay();
+                
+                searchInput.value = '';
+                } else {
+                    updateStatus('searchStatus', 'Search failed', 'text-red-400');
+                }
+            } catch (error) {
+                updateStatus('searchStatus', `Error: ${error.message}`, 'text-red-400');
+            }
+        }
+
+        function addMessageToChat(role, content) {
+            const chatMessages = document.getElementById('chatMessages');
+            
+            // Clear initial message
+            if (chatMessages.children.length === 1 && chatMessages.children[0].querySelector('[style*="color: var(--text-muted)"]')) {
+                chatMessages.innerHTML = '';
+            }
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message mb-4 ${role === 'user' ? 'text-right' : 'text-left'}`;
+
+            // Render content based on role
+            let renderedContent;
+            if (role === 'assistant') {
+                // Render markdown for AI responses
+                renderedContent = renderMarkdown(content);
+            } else {
+                // Plain text for user and system messages
+                renderedContent = `<div class="whitespace-pre-wrap text-sm leading-relaxed">${escapeHtml(content)}</div>`;
+            }
+
+            // Use CSS variables for styling
+            let messageStyle, textColor;
+            if (role === 'user') {
+                messageStyle = 'background-color: var(--accent-blue); color: white;';
+                textColor = 'color: white;';
+            } else if (role === 'assistant') {
+                messageStyle = 'background-color: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border-color);';
+                textColor = 'color: var(--text-primary);';
+            } else {
+                messageStyle = 'background-color: var(--accent-yellow); color: var(--bg-primary);';
+                textColor = 'color: var(--bg-primary);';
+            }
+
+            messageDiv.innerHTML = `
+                <div class="inline-block max-w-full lg:max-w-4xl px-4 py-3 rounded-lg" style="${messageStyle}">
+                    <div class="text-xs opacity-75 mb-2" style="${textColor}">${role.charAt(0).toUpperCase() + role.slice(1)}</div>
+                    ${renderedContent}
+                </div>
+            `;
+
+            chatMessages.appendChild(messageDiv);
+            
+            // Apply syntax highlighting to code blocks for assistant messages
+            if (role === 'assistant') {
+                messageDiv.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+            }
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addStreamingMessage(role) {
+            const chatMessages = document.getElementById('chatMessages');
+            
+            // Clear initial message
+            if (chatMessages.children.length === 1 && chatMessages.children[0].querySelector('[style*="color: var(--text-muted)"]')) {
+                chatMessages.innerHTML = '';
+            }
+
+            const messageDiv = document.createElement('div');
+            const messageId = 'streaming-' + Date.now();
+            messageDiv.id = messageId;
+            messageDiv.className = `chat-message mb-4 ${role === 'user' ? 'text-right' : 'text-left'}`;
+
+            // Use CSS variables for styling
+            let messageStyle, textColor;
+            if (role === 'user') {
+                messageStyle = 'background-color: var(--accent-blue); color: white;';
+                textColor = 'color: white;';
+            } else if (role === 'assistant') {
+                messageStyle = 'background-color: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border-color);';
+                textColor = 'color: var(--text-primary);';
+            } else {
+                messageStyle = 'background-color: var(--accent-yellow); color: var(--bg-primary);';
+                textColor = 'color: var(--bg-primary);';
+            }
+
+            messageDiv.innerHTML = `
+                <div class="inline-block max-w-full lg:max-w-4xl px-4 py-3 rounded-lg" style="${messageStyle}">
+                    <div class="text-xs opacity-75 mb-2" style="${textColor}">${role.charAt(0).toUpperCase() + role.slice(1)}</div>
+                    <div class="whitespace-pre-wrap text-sm leading-relaxed" id="${messageId}-content" style="${textColor}">▋</div>
+                </div>
+            `;
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            return messageId;
+        }
+        
+        function updateStreamingMessage(messageId, content) {
+            const contentElement = document.getElementById(messageId + '-content');
+            if (contentElement) {
+                contentElement.textContent = content + '▋';
+                const chatMessages = document.getElementById('chatMessages');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+        
+        function finalizeStreamingMessage(messageId, content) {
+            const messageElement = document.getElementById(messageId);
+            const contentElement = document.getElementById(messageId + '-content');
+            
+            if (contentElement && messageElement) {
+                // Replace the plain text content with rendered markdown
+                const markdownHtml = renderMarkdown(content);
+                
+                // Get the parent bubble container
+                const bubbleContainer = contentElement.parentElement;
+                const roleHeader = bubbleContainer.querySelector('.text-xs');
+                
+                // Replace the content while preserving the role header
+                bubbleContainer.innerHTML = roleHeader.outerHTML + markdownHtml;
+                
+                // Apply syntax highlighting
+                bubbleContainer.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+            }
+        }
+        
+        function removeMessage(messageId) {
+            const messageElement = document.getElementById(messageId);
+            if (messageElement) {
+                messageElement.remove();
+            }
+        }
+        
+        function displayResponseMetrics(messageId) {
+            // Calculate metrics
+            const totalTime = (responseMetrics.endTime - responseMetrics.startTime) / 1000; // seconds
+            const timeToFirstToken = responseMetrics.firstTokenTime ? 
+                (responseMetrics.firstTokenTime - responseMetrics.startTime) / 1000 : null;
+            
+            // Estimate tokens per second (rough approximation)
+            const estimatedTokens = Math.max(responseMetrics.totalTokens / 4, 1); // ~4 chars per token
+            const tokensPerSecond = estimatedTokens / totalTime;
+            
+            // Create metrics display
+            const messageElement = document.getElementById(messageId);
+            if (messageElement) {
+                const metricsDiv = document.createElement('div');
+                metricsDiv.className = 'mt-3 pt-2 text-xs opacity-70';
+                metricsDiv.style.borderTop = '1px solid var(--border-color)';
+                metricsDiv.style.color = 'var(--text-muted)';
+                
+                let metricsHtml = '';
+                
+                // Format metrics display
+                if (timeToFirstToken) {
+                    metricsHtml += `⚡ First token: ${timeToFirstToken.toFixed(2)}s | `;
+                }
+                
+                metricsHtml += `⏱️ Total time: ${totalTime.toFixed(2)}s | `;
+                metricsHtml += `🚀 Speed: ~${tokensPerSecond.toFixed(1)} tokens/s`;
+                
+                if (estimatedTokens > 1) {
+                    metricsHtml += ` | 📊 ~${Math.round(estimatedTokens)} tokens`;
+                }
+                
+                metricsDiv.innerHTML = metricsHtml;
+                
+                // Add to the message bubble
+                const bubbleContainer = messageElement.querySelector('.inline-block');
+                if (bubbleContainer) {
+                    bubbleContainer.appendChild(metricsDiv);
+                }
+            }
+        }
+
+        function updateStatus(elementId, message, className) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `text-sm ${className}`;
+            
+            // Clear status after 3 seconds
+            setTimeout(() => {
+                element.textContent = '';
+                element.className = 'text-sm';
+            }, 3000);
+        }
+        
+        // HTML escape function (must be defined early)
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Clear chat function
+        function clearChat() {
+            // Check authentication first
+            if (!token) {
+                addMessageToChat('system', '🔐 Please login to clear conversations.');
+                return;
+            }
+            
+            const chatMessages = document.getElementById('chatMessages');
+            
+            // Clear all messages - show different content based on auth status
+            if (token) {
+                chatMessages.innerHTML = '<div class="text-center" style="color: var(--text-muted);">Start a conversation...</div>';
+            } else {
+                // Show authentication required message when not logged in
+                chatMessages.innerHTML = `
+                    <div class="auth-required-message text-center p-8">
+                        <div class="inline-block px-6 py-4 rounded-lg" style="background-color: var(--bg-tertiary); border: 2px solid var(--accent-blue);">
+                            <div class="text-lg font-semibold mb-2" style="color: var(--accent-blue);">🔐 Authentication Required</div>
+                            <div class="text-sm" style="color: var(--text-secondary);">Please login with your credentials to access the AI chat interface.</div>
+                            <div class="text-xs mt-2" style="color: var(--text-muted);">For testing, use: admin/admin</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Clear conversation context and reset conversation state
+            conversationContext = [];
+            currentConversationId = null;
+            
+            // Refresh conversation list if visible to remove active state
+            if (conversationHistoryVisible) {
+                loadConversations();
+            }
+            
+            // Show confirmation message briefly
+            const confirmationDiv = document.createElement('div');
+            confirmationDiv.className = 'chat-message mb-4 text-center';
+            confirmationDiv.innerHTML = `
+                <div class="inline-block px-4 py-2 rounded-lg" style="background-color: var(--accent-green); color: white;">
+                    <div class="text-xs">✓ Chat cleared</div>
+                </div>
+            `;
+            
+            chatMessages.appendChild(confirmationDiv);
+            
+            // Remove confirmation after 2 seconds
+            setTimeout(() => {
+                if (confirmationDiv.parentNode) {
+                    confirmationDiv.remove();
+                }
+            }, 2000);
+        }
+        
+        // Theme toggle functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            const currentTheme = html.getAttribute('data-theme');
+            
+            if (currentTheme === 'light') {
+                html.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+                // Switch to dark syntax highlighting
+                document.getElementById('hljs-dark').disabled = false;
+                document.getElementById('hljs-light').disabled = true;
+            } else {
+                html.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+                // Switch to light syntax highlighting
+                document.getElementById('hljs-dark').disabled = true;
+                document.getElementById('hljs-light').disabled = false;
+            }
+        }
+        
+        // Initialize theme from localStorage
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'light') {
+                html.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '☀️';
+                // Enable light syntax highlighting
+                document.getElementById('hljs-dark').disabled = true;
+                document.getElementById('hljs-light').disabled = false;
+            } else {
+                html.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                // Enable dark syntax highlighting
+                document.getElementById('hljs-dark').disabled = false;
+                document.getElementById('hljs-light').disabled = true;
+            }
+        }
+        
+        // Markdown rendering with copy buttons
+        function renderMarkdown(content) {
+            try {
+                // Sanitize content to handle special tags that might interfere with markdown
+                let sanitizedContent = content;
+                
+                // Escape angle brackets in reasoning tags like <think>
+                sanitizedContent = sanitizedContent.replace(/\u003cthink\u003e/gi, '\u003cthink\u003e');
+                sanitizedContent = sanitizedContent.replace(/\u003c\/think\u003e/gi, '\u003c/think\u003e');
+                
+                const html = marked.parse(sanitizedContent);
+                
+                // Wrap code blocks with copy buttons
+            const wrappedHtml = html.replace(
+                /<pre><code([^>]*)>([\s\S]*?)<\/code><\/pre>/g,
+                (match, attrs, code) => {
+                    const id = 'code-' + Math.random().toString(36).substr(2, 9);
+                    return `
+                        <div class="code-block-wrapper">
+                            <button class="copy-button" onclick="copyCode('${id}')" title="Copy code">
+                                Copy
+                            </button>
+                            <pre><code${attrs} id="${id}">${code}</code></pre>
+                        </div>
+                    `;
+                }
+            );
+            
+                return `<div class="markdown-content text-sm leading-relaxed">${wrappedHtml}</div>`;
+            } catch (error) {
+                console.error('Error rendering markdown:', error);
+                // Fallback to plain text if markdown rendering fails
+                return `<div class="whitespace-pre-wrap text-sm leading-relaxed">${escapeHtml(content)}</div>`;
+            }
+        }
+        
+        // Copy code function
+        function copyCode(elementId) {
+            const codeElement = document.getElementById(elementId);
+            if (codeElement) {
+                const text = codeElement.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    // Visual feedback
+                    const button = codeElement.parentElement.querySelector('.copy-button');
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            }
+        }
+        
+        // Display enhanced AI summary with sources only (no raw results)
+        function displaySearchResults(results, llmSummary = null, processingStatus = null) {
+            console.log('displaySearchResults called with:', results.length, 'results'); // Debug
+            const chatMessages = document.getElementById('chatMessages');
+            
+            // Clear initial message
+            if (chatMessages.children.length === 1 && chatMessages.children[0].querySelector('[style*="color: var(--text-muted)"]')) {
+                chatMessages.innerHTML = '';
+            }
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message mb-4 text-left';
+            
+            let renderedContent = '';
+            
+            // Display enhanced AI summary with sources
+            if (llmSummary && processingStatus === 'success') {
+                // Process the AI summary for better rendering (including markdown-like formatting)
+                const processedSummary = renderMarkdown(llmSummary);
+                
+                renderedContent = `<div class="p-4 rounded-lg" style="background-color: var(--bg-tertiary); border-left: 4px solid var(--accent-blue);">
+                    <h3 class="text-lg font-semibold mb-3" style="color: var(--accent-blue);">🔍 Search Analysis</h3>
+                    <div class="text-sm leading-relaxed" style="color: var(--text-primary);">
+                        ${processedSummary}
+                    </div>
+                </div>`;
+            } else {
+                // Fallback when AI processing fails - show condensed results with sources
+                renderedContent = `<div class="p-4 rounded-lg" style="background-color: var(--bg-tertiary); border-left: 4px solid var(--accent-yellow);">
+                    <h3 class="text-lg font-semibold mb-3" style="color: var(--accent-yellow);">⚠️ Search Results</h3>
+                    <div class="text-sm mb-3" style="color: var(--text-muted);">AI processing unavailable (${processingStatus || 'unknown error'}). Showing condensed results:</div>`;
+                
+                // Show condensed results when AI processing fails
+                for (let i = 0; i < Math.min(results.length, 3); i++) {
+                    const result = results[i];
+                    const snippet = result.snippet || result.content || 'No description available';
+                    const truncatedSnippet = snippet.length > 200 ? snippet.substring(0, 200) + '...' : snippet;
+                    
+                    renderedContent += `<div class="mb-3 pb-2" style="border-bottom: 1px solid var(--border-color);">
+                        <div class="font-medium mb-1" style="color: var(--text-primary);">${escapeHtml(result.title)}</div>
+                        <div class="text-xs mb-1" style="color: var(--text-muted);">${escapeHtml(truncatedSnippet)}</div>
+                    </div>`;
+                }
+                
+                // Add sources section for fallback
+                renderedContent += `<div class="mt-4 pt-3" style="border-top: 1px solid var(--border-color);">
+                    <div class="font-semibold mb-2" style="color: var(--text-primary);">Sources:</div>`;
+                
+                results.forEach((result, index) => {
+                    renderedContent += `<div class="text-xs mb-1">
+                        <a href="${escapeHtml(result.url)}" target="_blank" class="hover:underline" style="color: var(--accent-blue);">
+                            [${index + 1}] ${escapeHtml(result.title)}
+                        </a>
+                    </div>`;
+                });
+                
+                renderedContent += `</div></div>`;
+            }
+
+            messageDiv.innerHTML = `
+                <div class="inline-block max-w-full lg:max-w-4xl px-4 py-3 rounded-lg" style="background-color: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border-color);">
+                    <div class="text-xs opacity-75 mb-2" style="color: var(--text-primary);">Assistant</div>
+                    ${renderedContent}
+                </div>
+            `;
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Create context summary for AI with more comprehensive content
+        function createSearchContextSummary(results) {
+            return results.map(result => {
+                const snippet = result.snippet || result.content || 'No description available';
+                // Increased context limit for AI to 250 characters per result
+                const truncatedSnippet = snippet.length > 250 ? snippet.substring(0, 250) + '...' : snippet;
+                return `${result.title}: ${truncatedSnippet}`;
+            }).join(' | ');
+        }
+        
+        // Load available models from GPUStack
+        async function loadAvailableModels() {
+            try {
+                const response = await fetch(`${API_BASE}/api/models`);
+                if (response.ok) {
+                    const data = await response.json();
+                    availableModels = data.models || [];
+                    updateModelSelector();
+                } else {
+                    console.error('Failed to load models');
+                }
+            } catch (error) {
+                console.error('Error loading models:', error);
+            }
+        }
+        
+        // Update the model selector dropdown with enhanced status information
+        function updateModelSelector() {
+            const selector = document.getElementById('modelSelector');
+            if (availableModels.length === 0) {
+                selector.innerHTML = `<option value="${currentModel}">${currentModel} (Loading...)</option>`;
+                return;
+            }
+
+            // --- NEW LOGIC: Ensure currentModel is valid and ready ---
+            let validCurrentModel = availableModels.find(m => m.name === currentModel && m.status === 'ready');
+            if (!validCurrentModel) {
+                // Pick the first ready model
+                const firstReady = availableModels.find(m => m.status === 'ready');
+                if (firstReady) {
+                    currentModel = firstReady.name;
+                    localStorage.setItem('selectedModel', currentModel);
+                } else {
+                    // If no ready model, pick the first model in the list
+                    currentModel = availableModels[0].name;
+                    localStorage.setItem('selectedModel', currentModel);
+                }
+            }
+            // --- END NEW LOGIC ---
+
+            selector.innerHTML = '';
+            availableModels.forEach(model => {
+                const option = document.createElement('option');
+                option.value = model.name;
+                let displayName = model.display_name || model.name;
+                const statusEmoji = {
+                    'ready': '🟢',
+                    'loading': '🟡',
+                    'error': '🔴',
+                    'unknown': '🔵'
+                };
+                const emoji = statusEmoji[model.status] || '⚪';
+                displayName = `${emoji} ${displayName}`;
+                if (model.status === 'ready') {
+                    displayName += ' - Ready';
+                } else if (model.status === 'loading') {
+                    displayName += ' - Loading';
+                    option.disabled = true;
+                    option.style.color = '#d97706';
+                } else if (model.status === 'error') {
+                    displayName += ' - Error';
+                    option.disabled = true;
+                    option.style.color = '#dc2626';
+                } else {
+                    displayName += ' - Unknown';
+                    option.disabled = true;
+                    option.style.color = '#6b7280';
+                }
+                option.textContent = displayName;
+                option.title = model.status_description || 'No status information available';
+                if (model.name === currentModel) {
+                    option.selected = true;
+                }
+                selector.appendChild(option);
+            });
+            updateModelInfo();
+            showModelAvailabilitySummary();
+        }
+        
+        // Handle model change
+        function changeModel() {
+            const selector = document.getElementById('modelSelector');
+            const newModel = selector.value;
+            
+            if (newModel !== currentModel) {
+                currentModel = newModel;
+                
+                // Save to localStorage
+                localStorage.setItem('selectedModel', currentModel);
+                
+                // Update model info panel
+                updateModelInfo();
+                
+                // Update context usage display for new model
+                updateContextUsageDisplay();
+                
+                // Add system message about model change
+                addMessageToChat('system', `Switched to model: ${currentModel}`);
+                
+                console.log('Model changed to:', currentModel);
+            }
+        }
+        
+        // Update model info panel
+        function updateModelInfo() {
+            const currentModelData = availableModels.find(m => m.name === currentModel);
+            
+            if (!currentModelData) return;
+            
+            // Find the model info container by looking for the h3 with "Model Info" text
+            const modelInfoHeaders = document.querySelectorAll('h3');
+            let modelInfoContainer = null;
+            
+            for (const header of modelInfoHeaders) {
+                if (header.textContent.includes('Model Info')) {
+                    modelInfoContainer = header.parentElement;
+                    break;
+                }
+            }
+            
+            if (!modelInfoContainer) return;
+            
+            const infoContainer = modelInfoContainer.querySelector('.space-y-2');
+            if (!infoContainer) return;
+            
+            const contextTokens = currentModelData.meta?.n_ctx || 8192;
+            const params = currentModelData.meta?.n_params ? 
+                (currentModelData.meta.n_params / 1e9).toFixed(1) + 'B' : 'Unknown';
+            const contextFormatted = currentModelData.meta?.context_window_formatted || `${contextTokens.toLocaleString()} tokens`;
+            const maxSafeTokens = currentModelData.meta?.max_safe_tokens || Math.floor(contextTokens * 0.8);
+            
+            // Calculate current context usage
+            let estimatedPromptTokens = 0;
+            conversationContext.forEach(msg => {
+                estimatedPromptTokens += Math.ceil(msg.content.length / 4);
+            });
+            estimatedPromptTokens += 200; // Buffer for user message and system prompts
+            
+            const usagePercent = Math.round((estimatedPromptTokens / contextTokens) * 100);
+            let usageColor = 'var(--accent-green)';
+            if (usagePercent > 80) {
+                usageColor = 'var(--accent-red)';
+            } else if (usagePercent > 60) {
+                usageColor = 'var(--accent-yellow)';
+            } else if (usagePercent > 40) {
+                usageColor = 'var(--accent-orange)';
+            }
+            
+            infoContainer.innerHTML = `
+                <div class="flex justify-between">
+                    <span>Model:</span>
+                    <span style="color: var(--accent-blue);">${currentModel}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Parameters:</span>
+                    <span style="color: var(--accent-blue);">${params}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Context:</span>
+                    <span style="color: var(--accent-blue);">${contextFormatted}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Max Response:</span>
+                    <span style="color: var(--accent-blue);">${maxSafeTokens.toLocaleString()} tokens (80%)</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Context Usage:</span>
+                    <span style="color: ${usageColor};">${usagePercent}% (${estimatedPromptTokens.toLocaleString()}/${contextTokens.toLocaleString()})</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Status:</span>
+                    <span style="color: ${currentModelData.ready_replicas > 0 ? 'var(--accent-green)' : 'var(--accent-red)'};">
+                        ${currentModelData.ready_replicas > 0 ? 'Online' : 'Offline'}
+                    </span>
+                </div>
+            `;
+        }
+        
+        // Initialize saved model preference
+        function initModelPreference() {
+            const savedModel = localStorage.getItem('selectedModel');
+            if (savedModel) {
+                currentModel = savedModel;
+            }
+        }
+        
+        // Conversation Export/Import functionality with multiple formats
+        function exportConversation(format = 'json') {
+            // Check authentication first
+            if (!token) {
+                addMessageToChat('system', '🔐 Please login to export conversations.');
+                return;
+            }
+            
+            // Close the dropdown
+            toggleExportDropdown();
+            
+            // Get all chat messages from the UI
+            const chatMessages = document.getElementById('chatMessages');
+            const messageElements = chatMessages.querySelectorAll('.chat-message');
+            
+            if (messageElements.length === 0 || 
+                (messageElements.length === 1 && messageElements[0].textContent.includes('Start a conversation'))) {
+                alert('No conversation to export!');
+                return;
+            }
+            
+            // Extract messages data
+            const messages = [];
+            messageElements.forEach(messageEl => {
+                const roleHeader = messageEl.querySelector('.text-xs');
+                if (!roleHeader) return;
+                
+                const role = roleHeader.textContent.toLowerCase().trim();
+                const contentEl = messageEl.querySelector('.markdown-content, .whitespace-pre-wrap, div:not(.text-xs)');
+                
+                if (contentEl && role !== 'assistant' && role !== 'user' && role !== 'system') return;
+                
+                let content = '';
+                if (contentEl) {
+                    // For markdown content, get the text content to avoid HTML
+                    if (contentEl.classList.contains('markdown-content')) {
+                        content = contentEl.textContent.trim();
+                    } else {
+                        content = contentEl.textContent.trim();
+                    }
+                }
+                
+                if (content && role) {
+                    messages.push({
+                        role: role,
+                        content: content,
+                        timestamp: new Date().toISOString()
+                    });
+                }
+            });
+            
+            const dateStr = new Date().toISOString().split('T')[0];
+            let fileName, fileContent, mimeType;
+            
+            switch (format) {
+                case 'markdown':
+                    const { content: markdownContent, filename: mdFilename } = exportAsMarkdown(messages);
+                    fileName = `gpustack-conversation-${dateStr}.md`;
+                    fileContent = markdownContent;
+                    mimeType = 'text/markdown';
+                    break;
+                    
+                case 'text':
+                    const { content: textContent, filename: txtFilename } = exportAsText(messages);
+                    fileName = `gpustack-conversation-${dateStr}.txt`;
+                    fileContent = textContent;
+                    mimeType = 'text/plain';
+                    break;
+                    
+                case 'json':
+                default:
+                    // Create export data structure for JSON
+                    const exportData = {
+                        version: '1.0',
+                        exported_at: new Date().toISOString(),
+                        model: currentModel,
+                        message_count: messages.length,
+                        conversation: messages,
+                        context: conversationContext
+                    };
+                    fileName = `gpustack-conversation-${dateStr}.json`;
+                    fileContent = JSON.stringify(exportData, null, 2);
+                    mimeType = 'application/json';
+                    break;
+            }
+            
+            // Create and download file
+            const dataBlob = new Blob([fileContent], { type: mimeType });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = fileName;
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show success message
+            const formatName = format.charAt(0).toUpperCase() + format.slice(1);
+            addMessageToChat('system', `✅ Conversation exported as ${formatName}! (${messages.length} messages)`);
+        }
+        
+        // Show model availability summary
+        function showModelAvailabilitySummary() {
+            const readyModels = availableModels.filter(m => m.status === 'ready');
+            const errorModels = availableModels.filter(m => m.status === 'error');
+            const loadingModels = availableModels.filter(m => m.status === 'loading');
+            
+            if (readyModels.length === 0) {
+                addMessageToChat('system', `❌ No models are currently available. Please check GPUStack configuration.`);
+                return;
+            }
+            
+            if (errorModels.length > 0) {
+                const errorModelNames = errorModels.map(m => m.name).join(', ');
+                addMessageToChat('system', `⚠️ ${errorModels.length} model(s) are not available: ${errorModelNames}`);
+            }
+            
+            if (loadingModels.length > 0) {
+                const loadingModelNames = loadingModels.map(m => m.name).join(', ');
+                addMessageToChat('system', `⏳ ${loadingModels.length} model(s) are loading: ${loadingModelNames}`);
+            }
+            
+            if (readyModels.length > 0) {
+                const readyModelNames = readyModels.map(m => m.name).join(', ');
+                addMessageToChat('system', `✅ ${readyModels.length} model(s) are ready: ${readyModelNames}`);
+            }
+        }
+        
+        function exportAsMarkdown(messages) {
+            let content = `# GPUStack Conversation\n\n`;
+            content += `**Exported:** ${new Date().toLocaleString()}  \n`;
+            content += `**Model:** ${currentModel}  \n`;
+            content += `**Messages:** ${messages.length}\n\n`;
+            content += `---\n\n`;
+            
+            messages.forEach((msg, index) => {
+                const roleEmoji = {
+                    'user': '👤',
+                    'assistant': '🤖',
+                    'system': '⚙️'
+                }[msg.role] || '📝';
+                
+                content += `## ${roleEmoji} ${msg.role.charAt(0).toUpperCase() + msg.role.slice(1)}\n\n`;
+                content += `${msg.content}\n\n`;
+                
+                if (index < messages.length - 1) {
+                    content += `---\n\n`;
+                }
+            });
+            
+            content += `\n---\n*Exported from GPUStack UI*`;
+            
+            return { content, filename: 'markdown' };
+        }
+        
+        function exportAsText(messages) {
+            let content = `GPUStack Conversation\n`;
+            content += `========================\n\n`;
+            content += `Exported: ${new Date().toLocaleString()}\n`;
+            content += `Model: ${currentModel}\n`;
+            content += `Messages: ${messages.length}\n\n`;
+            
+            messages.forEach((msg, index) => {
+                const roleHeader = `[${msg.role.toUpperCase()}]`;
+                content += `${roleHeader}\n`;
+                content += `${'-'.repeat(roleHeader.length)}\n`;
+                content += `${msg.content}\n\n`;
+                
+                if (index < messages.length - 1) {
+                    content += `${'='.repeat(50)}\n\n`;
+                }
+            });
+            
+            content += `\n${'='.repeat(50)}\nExported from GPUStack UI`;
+            
+            return { content, filename: 'text' };
+        }
+        
+        function toggleExportDropdown() {
+            const exportMenu = document.getElementById('exportMenu');
+            if (exportMenu.style.display === 'none' || exportMenu.style.display === '') {
+                exportMenu.style.display = 'block';
+                // Close dropdown when clicking outside
+                setTimeout(() => {
+                    document.addEventListener('click', closeExportDropdown, { once: true });
+                }, 100);
+            } else {
+                exportMenu.style.display = 'none';
+            }
+        }
+        
+        function closeExportDropdown(event) {
+            const exportDropdown = document.getElementById('exportDropdown');
+            if (!exportDropdown.contains(event.target)) {
+                document.getElementById('exportMenu').style.display = 'none';
+            }
+        }
+        
+        function triggerImport() {
+            // Check authentication first
+            if (!token) {
+                addMessageToChat('system', '🔐 Please login to import conversations.');
+                return;
+            }
+            
+            const fileInput = document.getElementById('importFileInput');
+            fileInput.click();
+        }
+        
+        function importConversation() {
+            const fileInput = document.getElementById('importFileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) return;
+            
+            // Detect file format
+            const fileName = file.name.toLowerCase();
+            let formatType = 'unknown';
+            
+            if (fileName.endsWith('.json')) {
+                formatType = 'json';
+            } else if (fileName.endsWith('.md') || fileName.endsWith('.markdown')) {
+                formatType = 'markdown';
+            } else if (fileName.endsWith('.txt')) {
+                formatType = 'text';
+            } else {
+                alert('Please select a JSON (.json), Markdown (.md), or Text (.txt) file!');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const fileContent = e.target.result;
+                    let importData;
+                    
+                    // Parse file based on format
+                    switch (formatType) {
+                        case 'json':
+                            importData = parseJsonImport(fileContent);
+                            break;
+                        case 'markdown':
+                            importData = parseMarkdownImport(fileContent);
+                            break;
+                        case 'text':
+                            importData = parseTextImport(fileContent);
+                            break;
+                        default:
+                            throw new Error('Unsupported file format');
+                    }
+                    
+                    // Validate parsed data
+                    if (!importData.conversation || !Array.isArray(importData.conversation)) {
+                        throw new Error('No valid conversation found in file');
+                    }
+                    
+                    // Ask for confirmation
+                    const messageCount = importData.conversation.length;
+                    const formatName = formatType.charAt(0).toUpperCase() + formatType.slice(1);
+                    
+                    if (!confirm(`Import ${formatName} conversation with ${messageCount} messages?\n\nThis will clear your current conversation.`)) {
+                        return;
+                    }
+                    
+                    // Clear current conversation
+                    clearChat();
+                    
+                    // Import messages
+                    let importedCount = 0;
+                    importData.conversation.forEach(msg => {
+                        if (msg.role && msg.content && 
+                            ['user', 'assistant', 'system'].includes(msg.role)) {
+                            addMessageToChat(msg.role, msg.content);
+                            importedCount++;
+                        }
+                    });
+                    
+                    // Restore conversation context if available (JSON only)
+                    if (importData.context && Array.isArray(importData.context)) {
+                        conversationContext = importData.context;
+                    } else {
+                        // Rebuild context from imported messages
+                        conversationContext = [];
+                        importData.conversation.forEach(msg => {
+                            if (['user', 'assistant'].includes(msg.role)) {
+                                conversationContext.push({
+                                    role: msg.role,
+                                    content: msg.content
+                                });
+                            }
+                        });
+                    }
+                    
+                    // Update model if specified (JSON only)
+                    if (importData.model && importData.model !== currentModel) {
+                        const modelSelector = document.getElementById('modelSelector');
+                        const modelOption = Array.from(modelSelector.options).find(opt => opt.value === importData.model);
+                        if (modelOption) {
+                            currentModel = importData.model;
+                            modelSelector.value = currentModel;
+                            updateModelInfo();
+                        }
+                    }
+                    
+                    // Show success message
+                    addMessageToChat('system', `✅ ${formatName} conversation imported successfully! (${importedCount} messages)`);
+                    
+                } catch (error) {
+                    console.error('Import error:', error);
+                    alert(`Failed to import conversation: ${error.message}`);
+                }
+            };
+            
+            reader.readAsText(file);
+            fileInput.value = ''; // Clear the input
+        }
+        
+        function parseJsonImport(content) {
+            const data = JSON.parse(content);
+            
+            // Validate JSON structure
+            if (!data.conversation || !Array.isArray(data.conversation)) {
+                throw new Error('Invalid JSON conversation format');
+            }
+            
+            return data;
+        }
+        
+        function parseMarkdownImport(content) {
+            const messages = [];
+            let currentRole = null;
+            let currentContent = '';
+            
+            const lines = content.split('\n');
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                
+                // Look for role headers (## 👤 User, ## 🤖 Assistant, ## ⚙️ System)
+                const roleMatch = line.match(/^##\s*(?:[👤🤖⚙️📝]\s*)?(.+)$/i);
+                if (roleMatch) {
+                    // Save previous message if we have one
+                    if (currentRole && currentContent.trim()) {
+                        messages.push({
+                            role: currentRole,
+                            content: currentContent.trim(),
+                            timestamp: new Date().toISOString()
+                        });
+                    }
+                    
+                    // Determine new role
+                    const roleText = roleMatch[1].toLowerCase();
+                    if (roleText.includes('user')) {
+                        currentRole = 'user';
+                    } else if (roleText.includes('assistant')) {
+                        currentRole = 'assistant';
+                    } else if (roleText.includes('system')) {
+                        currentRole = 'system';
+                    } else {
+                        currentRole = null; // Skip unknown roles
+                    }
+                    
+                    currentContent = '';
+                    continue;
+                }
+                
+                // Skip metadata lines and separators
+                if (line.startsWith('#') || line.startsWith('**') || 
+                    line.startsWith('---') || line.startsWith('*Exported from') ||
+                    line.includes('Exported:') || line.includes('Model:') || line.includes('Messages:')) {
+                    continue;
+                }
+                
+                // Add content to current message
+                if (currentRole && line) {
+                    currentContent += (currentContent ? '\n' : '') + line;
+                }
+            }
+            
+            // Save last message
+            if (currentRole && currentContent.trim()) {
+                messages.push({
+                    role: currentRole,
+                    content: currentContent.trim(),
+                    timestamp: new Date().toISOString()
+                });
+            }
+            
+            return {
+                conversation: messages,
+                version: '1.0',
+                imported_from: 'markdown'
+            };
+        }
+        
+        function parseTextImport(content) {
+            const messages = [];
+            let currentRole = null;
+            let currentContent = '';
+            
+            const lines = content.split('\n');
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                
+                // Look for role headers [USER], [ASSISTANT], [SYSTEM]
+                const roleMatch = line.match(/^\[([A-Z]+)\]$/);
+                if (roleMatch) {
+                    // Save previous message if we have one
+                    if (currentRole && currentContent.trim()) {
+                        messages.push({
+                            role: currentRole,
+                            content: currentContent.trim(),
+                            timestamp: new Date().toISOString()
+                        });
+                    }
+                    
+                    // Set new role
+                    const roleText = roleMatch[1].toLowerCase();
+                    if (['user', 'assistant', 'system'].includes(roleText)) {
+                        currentRole = roleText;
+                    } else {
+                        currentRole = null; // Skip unknown roles
+                    }
+                    
+                    currentContent = '';
+                    continue;
+                }
+                
+                // Skip header lines, separators, and dashes
+                if (line.startsWith('GPUStack Conversation') || 
+                    line.startsWith('===========') || 
+                    line.startsWith('-----------') ||
+                    line.startsWith('Exported:') || line.startsWith('Model:') || 
+                    line.startsWith('Messages:') || line.startsWith('Exported from')) {
+                    continue;
+                }
+                
+                // Add content to current message
+                if (currentRole && line) {
+                    currentContent += (currentContent ? '\n' : '') + line;
+                }
+            }
+            
+            // Save last message
+            if (currentRole && currentContent.trim()) {
+                messages.push({
+                    role: currentRole,
+                    content: currentContent.trim(),
+                    timestamp: new Date().toISOString()
+                });
+            }
+            
+            return {
+                conversation: messages,
+                version: '1.0',
+                imported_from: 'text'
+            };
+        }
+        
+        // Authentication functionality
+        
+        function updateAuthUI(isLoggedIn, userData = null) {
+            const loginForm = document.getElementById('loginForm');
+            const logoutSection = document.getElementById('logoutSection');
+            const userDisplay = document.getElementById('userDisplay');
+            
+            // Get interface elements to control
+            const chatMessages = document.getElementById('chatMessages');
+            const messageInput = document.getElementById('messageInput');
+            const sendButton = document.getElementById('sendButton');
+            const stopButton = document.getElementById('stopButton');
+            const toolsSection = document.querySelector('.w-80'); // Tools sidebar
+            const chatControls = document.querySelector('.p-4.flex-shrink-0'); // Chat input area
+            const exportDropdown = document.getElementById('exportDropdown');
+            
+            if (isLoggedIn) {
+                loginForm.style.display = 'none';
+                logoutSection.style.display = 'block';
+                
+                // Only set username from validated userData, not localStorage directly
+                const displayName = userData?.name || userData?.username || localStorage.getItem('username') || 'User';
+                userDisplay.textContent = displayName;
+                
+                // Enable interface elements
+                if (messageInput) {
+                    messageInput.disabled = false;
+                    messageInput.placeholder = 'Type your message...';
+                    messageInput.style.opacity = '1';
+                }
+                if (sendButton) {
+                    sendButton.disabled = false;
+                    sendButton.style.opacity = '1';
+                }
+                
+                // Clear the authentication required message and show start conversation message
+                if (chatMessages && chatMessages.querySelector('.auth-required-message')) {
+                    chatMessages.innerHTML = '<div class="text-center" style="color: var(--text-muted);">Start a conversation...</div>';
+                }
+                if (toolsSection) {
+                    toolsSection.style.opacity = '1';
+                    toolsSection.style.pointerEvents = 'auto';
+                }
+                if (exportDropdown) {
+                    exportDropdown.style.opacity = '1';
+                    exportDropdown.style.pointerEvents = 'auto';
+                }
+                
+                // Enable all buttons in tools section
+                const toolButtons = document.querySelectorAll('.w-80 button');
+                toolButtons.forEach(button => {
+                    button.disabled = false;
+                    button.style.opacity = '1';
+                });
+                
+                // Enable file inputs
+                const fileInputs = document.querySelectorAll('.w-80 input[type="file"]');
+                fileInputs.forEach(input => {
+                    input.disabled = false;
+                    input.style.opacity = '1';
+                });
+                
+                // Enable search input
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput) {
+                    searchInput.disabled = false;
+                    searchInput.style.opacity = '1';
+                }
+                
+            } else {
+                loginForm.style.display = 'block';
+                logoutSection.style.display = 'none';
+                
+                // Disable interface elements
+                if (messageInput) {
+                    messageInput.disabled = true;
+                    messageInput.placeholder = 'Please login to start chatting...';
+                    messageInput.style.opacity = '0.5';
+                }
+                if (sendButton) {
+                    sendButton.disabled = true;
+                    sendButton.style.opacity = '0.5';
+                }
+                if (stopButton) {
+                    stopButton.disabled = true;
+                    stopButton.style.opacity = '0.5';
+                }
+                if (toolsSection) {
+                    toolsSection.style.opacity = '0.5';
+                    toolsSection.style.pointerEvents = 'none';
+                }
+                if (exportDropdown) {
+                    exportDropdown.style.opacity = '0.5';
+                    exportDropdown.style.pointerEvents = 'none';
+                }
+                
+                // Disable all buttons in tools section
+                const toolButtons = document.querySelectorAll('.w-80 button');
+                toolButtons.forEach(button => {
+                    button.disabled = true;
+                    button.style.opacity = '0.5';
+                });
+                
+                // Disable file inputs
+                const fileInputs = document.querySelectorAll('.w-80 input[type="file"]');
+                fileInputs.forEach(input => {
+                    input.disabled = true;
+                    input.style.opacity = '0.5';
+                });
+                
+                // Disable search input
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput) {
+                    searchInput.disabled = true;
+                    searchInput.placeholder = 'Login required for search...';
+                    searchInput.style.opacity = '0.5';
+                }
+                
+                // Show authentication required message in chat
+                if (chatMessages && !chatMessages.querySelector('.auth-required-message')) {
+                    chatMessages.innerHTML = `
+                        <div class="auth-required-message text-center p-8">
+                            <div class="inline-block px-6 py-4 rounded-lg" style="background-color: var(--bg-tertiary); border: 2px solid var(--accent-blue);">
+                                <div class="text-lg font-semibold mb-2" style="color: var(--accent-blue);">🔐 Authentication Required</div>
+                                <div class="text-sm" style="color: var(--text-secondary);">Please login with your credentials to access the AI chat interface.</div>
+                                <div class="text-xs mt-2" style="color: var(--text-muted);">For testing, use: admin/admin</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function login() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!username || !password) {
+                addMessageToChat('system', 'Please enter both username and password.');
+                return;
+            }
+
+            // Use enhanced authentication v2 endpoint
+            fetch(`${API_BASE}/api/auth/v2/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username, password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.access_token) {
+                    token = data.access_token;
+                    refreshToken = data.refresh_token;
+                    localStorage.setItem('authToken', token);
+                    localStorage.setItem('refreshToken', refreshToken);
+                    
+                    const userData = data.user || {};
+                    localStorage.setItem('username', userData.username || userData.name || username);
+                    localStorage.setItem('isAdmin', userData.is_admin || false);
+
+                    updateAuthUI(true, userData);
+                    addMessageToChat('system', `✅ Login successful! Welcome ${userData.full_name || userData.username}`);
+                    
+                    // Load user preferences
+                    loadUserPreferences();
+                    
+                    // Show admin panel if user is admin
+                    if (userData.is_admin) {
+                        showAdminFeatures();
+                    } else {
+                        hideAdminFeatures();
+                    }
+                    
+                    // Clear input fields
+                    document.getElementById('username').value = '';
+                    document.getElementById('password').value = '';
+                } else {
+                    addMessageToChat('system', '❌ Login failed: ' + (data.detail || 'Invalid credentials'));
+                }
+            })
+            .catch(err => {
+                addMessageToChat('system', `❌ Login error: ${err.message}`);
+            });
+        }
+
+        function logout() {
+            // 1. Clear all localStorage immediately
+            localStorage.clear();
+            
+            // 2. Clear token variables
+            token = null;
+            refreshToken = null;
+            
+            // 3. Force close admin panel state
+            adminPanelVisible = false;
+            
+            // 4. Check if admin button exists before removal
+            const adminButton = document.getElementById('adminButton');
+            let adminButtonFound = !!adminButton;
+            
+            // 5. Remove ALL admin elements aggressively
+            const elementsToRemove = [
+                'adminOverlay',
+                'adminButton',
+                'adminPanel'
+            ];
+            
+            let removedElements = [];
+            elementsToRemove.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    removedElements.push(id);
+                    element.remove();
+                }
+            });
+            
+            // 6. Remove by class and content - more aggressive
+            let removedOverlays = 0;
+            const overlays = document.querySelectorAll('.fixed, [class*="fixed"]');
+            overlays.forEach(overlay => {
+                if (overlay.innerHTML && (overlay.innerHTML.includes('Admin Panel') || overlay.innerHTML.includes('👑'))) {
+                    overlay.remove();
+                    removedOverlays++;
+                }
+            });
+            
+            // 7. Remove all buttons containing admin text
+            let removedButtons = 0;
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                if (button.textContent.includes('Admin') || button.innerHTML.includes('👑')) {
+                    button.remove();
+                    removedButtons++;
+                }
+            });
+            
+            // 8. Force DOM refresh by hiding and showing body
+            document.body.style.display = 'none';
+            setTimeout(() => {
+                document.body.style.display = 'flex';
+            }, 10);
+            
+            // 9. Update UI immediately
+            updateAuthUI(false);
+            
+            // 10. Show simple logout confirmation
+            addMessageToChat('system', '🔄 Logged out successfully!');
+            
+            // 11. Call API in background (don't wait for it)
+            fetch(`${API_BASE}/api/auth/v2/logout`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            }).catch(() => {
+                // Silently try v1 if v2 fails
+                return fetch(`${API_BASE}/api/auth/logout`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+            }).catch(() => {
+                // Ignore API errors - we already cleaned up locally
+            });
+        }
+
+        function checkAuthOnLoad() {
+            // Always start with unauthenticated state to prevent flashing generic user
+            updateAuthUI(false);
+            
+            if (token) {
+                // Validate the stored token
+                fetch(`${API_BASE}/api/auth/me`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                }).then(res => {
+                    if (res.ok) {
+                        res.json().then(data => {
+                            const userData = data.user || {};
+                            // Only update username if we have valid user data
+                            if (userData.name || userData.username) {
+                                localStorage.setItem('username', userData.name || userData.username);
+                                localStorage.setItem('isAdmin', userData.is_admin || false);
+                                updateAuthUI(true, userData);
+                                
+                                // Show/hide admin features based on role
+                                if (userData.is_admin) {
+                                    showAdminFeatures();
+                                } else {
+                                    hideAdminFeatures();
+                                }
+                            } else {
+                                // Invalid user data - clear token and require login
+                                localStorage.removeItem('authToken');
+                                localStorage.removeItem('username');
+                                token = null;
+                                updateAuthUI(false);
+                                hideAdminFeatures();
+                            }
+                        });
+                    } else {
+                        // Clear invalid token and show login form
+                        localStorage.removeItem('authToken');
+                        localStorage.removeItem('username');
+                        token = null;
+                        updateAuthUI(false);
+                    }
+                }).catch(() => {
+                    // Clear invalid token on any error
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('username');
+                    token = null;
+                    updateAuthUI(false);
+                });
+            }
+            // Note: If no token, we already called updateAuthUI(false) above
+        }
+        
+        function handleAuthKeyPress(event) {
+            if (event.key === 'Enter') {
+                login();
+            }
+        }
+        
+        // Function to add auth header to requests
+        function getAuthHeaders() {
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+            
+            return headers;
+        }
+        
+        // Admin panel functionality
+        let adminPanelVisible = false;
+        
+        function showAdminFeatures() {
+            // Add admin button to header if not exists
+            if (!document.getElementById('adminButton')) {
+                const authSection = document.getElementById('authSection');
+                const adminButton = document.createElement('button');
+                adminButton.id = 'adminButton';
+                adminButton.innerHTML = '👑 Admin Panel';
+                adminButton.className = 'px-3 py-2 rounded text-sm font-medium text-white transition-colors';
+                adminButton.style.cssText = 'background-color: var(--accent-purple); margin-left: 10px;';
+                adminButton.onmouseover = () => adminButton.style.opacity = '0.9';
+                adminButton.onmouseout = () => adminButton.style.opacity = '1';
+                adminButton.onclick = toggleAdminPanel;
+                
+                authSection.appendChild(adminButton);
+            }
+        }
+        
+        function hideAdminFeatures() {
+            const adminButton = document.getElementById('adminButton');
+            if (adminButton) {
+                adminButton.remove();
+            }
+            hideAdminPanel();
+        }
+        
+        function toggleAdminPanel() {
+            adminPanelVisible = !adminPanelVisible;
+            if (adminPanelVisible) {
+                showAdminPanel();
+            } else {
+                hideAdminPanel();
+            }
+        }
+        
+        function showAdminPanel() {
+            // Create admin panel overlay
+            const overlay = document.createElement('div');
+            overlay.id = 'adminOverlay';
+            overlay.className = 'fixed inset-0 z-50 flex items-center justify-center';
+            overlay.style.cssText = 'background-color: rgba(0,0,0,0.7);';
+            
+            const panel = document.createElement('div');
+            panel.className = 'rounded-lg shadow-xl p-6 max-w-6xl w-full max-h-[90vh] overflow-y-auto m-4';
+            panel.style.cssText = 'background-color: var(--bg-secondary); border: 1px solid var(--border-color);';
+            
+            panel.innerHTML = `
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold" style="color: var(--text-primary);">👑 Admin Panel</h2>
+                    <button onclick="hideAdminPanel()" class="px-4 py-2 rounded text-white transition-colors" style="background-color: var(--accent-red);">
+                        ✕ Close
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- User Management -->
+                    <div class="rounded-lg p-4" style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color);">
+                        <h3 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">👥 User Management</h3>
+                        <div class="space-y-3">
+                            <button onclick="loadUsers()" class="w-full px-4 py-2 rounded text-white transition-colors" style="background-color: var(--accent-blue);">
+                                📋 View All Users
+                            </button>
+                            <button onclick="showCreateUserForm()" class="w-full px-4 py-2 rounded text-white transition-colors" style="background-color: var(--accent-green);">
+                                ➕ Create New User
+                            </button>
+                            <div id="usersList" class="mt-4" style="max-height: 300px; overflow-y: auto;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Session Management -->
+                    <div class="rounded-lg p-4" style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color);">
+                        <h3 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">🔐 Session Management</h3>
+                        <div class="space-y-3">
+                            <button onclick="loadSessions()" class="w-full px-4 py-2 rounded text-white transition-colors" style="background-color: var(--accent-blue);">
+                                📊 View Active Sessions
+                            </button>
+                            <button onclick="cleanupExpiredSessions()" class="w-full px-4 py-2 rounded text-white transition-colors" style="background-color: var(--accent-yellow);">
+                                🧹 Cleanup Expired Sessions
+                            </button>
+                            <div id="sessionsList" class="mt-4" style="max-height: 300px; overflow-y: auto;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- System Health -->
+                    <div class="rounded-lg p-4" style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color);">
+                        <h3 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">⚡ System Health</h3>
+                        <div class="space-y-3">
+                            <button onclick="loadSystemHealth()" class="w-full px-4 py-2 rounded text-white transition-colors" style="background-color: var(--accent-blue);">
+                                🔍 Check System Status
+                            </button>
+                            <div id="systemHealth" class="mt-4"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- User Creation Form -->
+                    <div class="rounded-lg p-4" style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color);">
+                        <h3 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">➕ Create User</h3>
+                        <div id="createUserForm" class="space-y-3" style="display: none;">
+                            <input type="text" id="newUsername" placeholder="Username" class="w-full px-3 py-2 rounded" style="background-color: var(--bg-quaternary); border: 1px solid var(--border-color); color: var(--text-primary);">
+                            <input type="password" id="newPassword" placeholder="Password" class="w-full px-3 py-2 rounded" style="background-color: var(--bg-quaternary); border: 1px solid var(--border-color); color: var(--text-primary);">
+                            <input type="text" id="newFullName" placeholder="Full Name" class="w-full px-3 py-2 rounded" style="background-color: var(--bg-quaternary); border: 1px solid var(--border-color); color: var(--text-primary);">
+                            <label class="flex items-center">
+                                <input type="checkbox" id="newIsAdmin" class="mr-2">
+                                <span style="color: var(--text-secondary);">Admin User</span>
+                            </label>
+                            <button onclick="createUser()" class="w-full px-4 py-2 rounded text-white transition-colors" style="background-color: var(--accent-green);">
+                                ✅ Create User
+                            </button>
+                            <button onclick="hideCreateUserForm()" class="w-full px-4 py-2 rounded text-white transition-colors" style="background-color: var(--accent-red);">
+                                ❌ Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            overlay.appendChild(panel);
+            document.body.appendChild(overlay);
+            
+            // Load initial data
+            loadSystemHealth();
+        }
+        
+        function hideAdminPanel() {
+            const overlay = document.getElementById('adminOverlay');
+            if (overlay) {
+                overlay.remove();
+                adminPanelVisible = false;
+            }
+        }
+        
+        async function loadUsers() {
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/v2/users`, {
+                    headers: getAuthHeaders()
+                });
+                
+                if (response.ok) {
+                    const users = await response.json();
+                    displayUsers(users);
+                } else {
+                    displayError('usersList', 'Failed to load users');
+                }
+            } catch (error) {
+                displayError('usersList', `Error: ${error.message}`);
+            }
+        }
+        
+        function displayUsers(users) {
+            const container = document.getElementById('usersList');
+            if (!container) return;
+            
+            container.innerHTML = `
+                <div class="space-y-2">
+                    ${users.map(user => `
+                        <div class="p-3 rounded" style="background-color: var(--bg-quaternary); border: 1px solid var(--border-color);">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <div class="font-medium" style="color: var(--text-primary);">${user.username} ${user.is_admin ? '👑' : ''}</div>
+                                    <div class="text-sm" style="color: var(--text-secondary);">${user.full_name || 'No full name'}</div>
+                                    <div class="text-xs" style="color: var(--text-muted);">ID: ${user.id} | Created: ${new Date(user.created_at).toLocaleDateString()}</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button onclick="toggleUserAdmin(${user.id}, ${!user.is_admin})" 
+                                            class="px-2 py-1 rounded text-xs text-white transition-colors" 
+                                            style="background-color: var(--accent-yellow);">
+                                        ${user.is_admin ? 'Remove Admin' : 'Make Admin'}
+                                    </button>
+                                    ${user.username !== 'admin' ? `
+                                        <button onclick="deleteUser(${user.id}, '${user.username}')" 
+                                                class="px-2 py-1 rounded text-xs text-white transition-colors" 
+                                                style="background-color: var(--accent-red);">
+                                            Delete
+                                        </button>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        async function loadSessions() {
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/v2/sessions`, {
+                    headers: getAuthHeaders()
+                });
+                
+                if (response.ok) {
+                    const sessions = await response.json();
+                    displaySessions(sessions);
+                } else {
+                    displayError('sessionsList', 'Failed to load sessions');
+                }
+            } catch (error) {
+                displayError('sessionsList', `Error: ${error.message}`);
+            }
+        }
+        
+        function displaySessions(sessions) {
+            const container = document.getElementById('sessionsList');
+            if (!container) return;
+            
+            // Group sessions by user
+            const sessionsByUser = sessions.reduce((acc, session) => {
+                if (!acc[session.username]) acc[session.username] = [];
+                acc[session.username].push(session);
+                return acc;
+            }, {});
+            
+            container.innerHTML = `
+                <div class="space-y-3">
+                    ${Object.entries(sessionsByUser).map(([username, userSessions]) => `
+                        <div class="p-3 rounded" style="background-color: var(--bg-quaternary); border: 1px solid var(--border-color);">
+                            <div class="font-medium mb-2" style="color: var(--text-primary);">${username} (${userSessions.length} sessions)</div>
+                            ${userSessions.map(session => `
+                                <div class="text-xs p-2 mt-1 rounded" style="background-color: var(--bg-primary); color: var(--text-secondary);">
+                                    <div>${session.token_type} token | ${session.ip_address || 'Unknown IP'}</div>
+                                    <div>Expires: ${new Date(session.expires_at).toLocaleString()}</div>
+                                    <div class="flex justify-between items-center mt-1">
+                                        <span>Last used: ${new Date(session.last_accessed).toLocaleString()}</span>
+                                        <button onclick="revokeSession('${session.jti}')" 
+                                                class="px-2 py-1 rounded text-xs text-white transition-colors" 
+                                                style="background-color: var(--accent-red);">
+                                            Revoke
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        async function loadSystemHealth() {
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/v2/health`);
+                
+                if (response.ok) {
+                    const health = await response.json();
+                    displaySystemHealth(health);
+                } else {
+                    displayError('systemHealth', 'Failed to load system health');
+                }
+            } catch (error) {
+                displayError('systemHealth', `Error: ${error.message}`);
+            }
+        }
+        
+        function displaySystemHealth(health) {
+            const container = document.getElementById('systemHealth');
+            if (!container) return;
+            
+            const statusColor = health.status === 'healthy' ? 'var(--accent-green)' : 'var(--accent-red)';
+            const dbStatusColor = health.database?.status === 'healthy' ? 'var(--accent-green)' : 'var(--accent-red)';
+            
+            container.innerHTML = `
+                <div class="space-y-2">
+                    <div class="p-3 rounded" style="background-color: var(--bg-quaternary); border: 1px solid var(--border-color);">
+                        <div class="flex justify-between">
+                            <span style="color: var(--text-secondary);">System Status:</span>
+                            <span style="color: ${statusColor}; font-weight: bold;">${health.status.toUpperCase()}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span style="color: var(--text-secondary);">Database:</span>
+                            <span style="color: ${dbStatusColor}; font-weight: bold;">${health.database?.status?.toUpperCase() || 'UNKNOWN'}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span style="color: var(--text-secondary);">Auth Service:</span>
+                            <span style="color: var(--accent-blue); font-weight: bold;">${health.auth_service || 'UNKNOWN'}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span style="color: var(--text-secondary);">Expired Sessions Cleaned:</span>
+                            <span style="color: var(--text-primary);">${health.expired_sessions_cleaned || 0}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function showCreateUserForm() {
+            const form = document.getElementById('createUserForm');
+            if (form) {
+                form.style.display = 'block';
+                // Clear form
+                document.getElementById('newUsername').value = '';
+                document.getElementById('newPassword').value = '';
+                document.getElementById('newFullName').value = '';
+                document.getElementById('newIsAdmin').checked = false;
+            }
+        }
+        
+        function hideCreateUserForm() {
+            const form = document.getElementById('createUserForm');
+            if (form) {
+                form.style.display = 'none';
+            }
+        }
+        
+        async function createUser() {
+            const username = document.getElementById('newUsername').value.trim();
+            const password = document.getElementById('newPassword').value.trim();
+            const fullName = document.getElementById('newFullName').value.trim();
+            const isAdmin = document.getElementById('newIsAdmin').checked;
+            
+            if (!username || !password) {
+                alert('Username and password are required!');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/v2/users`, {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({
+                        username,
+                        password,
+                        full_name: fullName || username,
+                        is_admin: isAdmin
+                    })
+                });
+                
+                if (response.ok) {
+                    const newUser = await response.json();
+                    hideCreateUserForm();
+                    loadUsers(); // Refresh user list
+                    addMessageToChat('system', `✅ User '${username}' created successfully!`);
+                } else {
+                    const error = await response.json();
+                    alert(`Failed to create user: ${error.detail || 'Unknown error'}`);
+                }
+            } catch (error) {
+                alert(`Error creating user: ${error.message}`);
+            }
+        }
+        
+        function displayError(containerId, message) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.innerHTML = `<div class="text-red-400 text-sm">${message}</div>`;
+            }
+        }
+        
+        // Conversation History Variables
+        // Note: currentConversationId and conversationHistoryVisible are already declared at the top
+        
+        // Conversation History Functions
+        function toggleConversationSidebar() {
+            const sidebar = document.getElementById('conversationSidebar');
+            const toggleButton = document.getElementById('toggleHistoryButton');
+            
+            conversationHistoryVisible = !conversationHistoryVisible;
+            
+            if (conversationHistoryVisible) {
+                sidebar.style.display = 'flex';
+                toggleButton.innerHTML = '🗣️ Hide History';
+                loadConversations();
+                loadConversationStats();
+            } else {
+                sidebar.style.display = 'none';
+                toggleButton.innerHTML = '🗣️ History';
+            }
+        }
+        
+        async function loadConversations() {
+            if (!token) {
+                updateConversationsList([], 'Please login to view conversation history.');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/conversations/`, {
+                    headers: getAuthHeaders()
+                });
+                
+                if (response.ok) {
+                    const conversations = await response.json();
+                    updateConversationsList(conversations);
+                } else {
+                    updateConversationsList([], 'Failed to load conversations.');
+                }
+            } catch (error) {
+                updateConversationsList([], `Error: ${error.message}`);
+            }
+        }
+        
+        function updateConversationsList(conversations, errorMessage = null) {
+            const listContainer = document.getElementById('conversationList');
+            
+            if (errorMessage) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-8 text-sm" style="color: var(--text-muted);">
+                        ${errorMessage}
+                    </div>
+                `;
+                return;
+            }
+            
+            if (conversations.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-8 text-sm" style="color: var(--text-muted);">
+                        No conversations yet. Start a new chat!
+                    </div>
+                `;
+                return;
+            }
+            
+            listContainer.innerHTML = conversations.map(conv => {
+                const isActive = currentConversationId === conv.id;
+                const truncatedTitle = conv.title.length > 30 ? conv.title.substring(0, 30) + '...' : conv.title;
+                const lastUpdate = new Date(conv.updated_at).toLocaleDateString();
+                
+                return `
+                    <div class="conversation-item p-3 mb-2 rounded cursor-pointer transition-colors" 
+                         style="background-color: ${isActive ? 'var(--bg-quaternary)' : 'var(--bg-tertiary)'}; border: 1px solid ${isActive ? 'var(--accent-blue)' : 'var(--border-color)'};" 
+                         onclick="loadConversation('${conv.id}')" 
+                         onmouseover="this.style.backgroundColor='var(--bg-quaternary)'" 
+                         onmouseout="this.style.backgroundColor='${isActive ? 'var(--bg-quaternary)' : 'var(--bg-tertiary)'}'"
+                    >
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <div class="font-medium text-sm" style="color: var(--text-primary);" title="${conv.title}">
+                                    ${truncatedTitle}
+                                </div>
+                                <div class="text-xs mt-1" style="color: var(--text-muted);">
+                                    ${conv.message_count} messages • ${lastUpdate}
+                                </div>
+                                <div class="text-xs" style="color: var(--text-muted);">
+                                    ${conv.model_used || 'Unknown model'}
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1 ml-2">
+                                <button 
+                                    onclick="event.stopPropagation(); deleteConversation('${conv.id}')" 
+                                    class="p-1 rounded text-xs opacity-70 hover:opacity-100 transition-opacity"
+                                    style="color: var(--accent-red);"
+                                    title="Delete conversation"
+                                >
+                                    🗑️
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Generate smart title from user message
+        function generateSmartTitle(userMessage) {
+            // Clean the message
+            const cleanMessage = userMessage.trim();
+            
+            // If message is too short, use it as is
+            if (cleanMessage.length <= 30) {
+                return cleanMessage;
+            }
+            
+            // Common question patterns
+            const questionPatterns = [
+                /^(how|what|when|where|why|who|which|can|could|would|should|will|is|are|am|do|does|did)\s+/i,
+                /^(explain|describe|tell me|help me|show me|teach me)\s+/i,
+                /^(create|write|generate|build|make|design)\s+/i,
+                /^(analyze|compare|review|summarize|evaluate)\s+/i
+            ];
+            
+            // Extract key topic words
+            const stopWords = new Set([
+                'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has', 'he', 
+                'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to', 'was', 'were', 
+                'will', 'with', 'you', 'your', 'i', 'me', 'my', 'we', 'us', 'our', 'they', 
+                'them', 'their', 'this', 'these', 'those', 'there', 'here', 'when', 'where',
+                'please', 'can', 'could', 'would', 'should'
+            ]);
+            
+            // Try to extract main topic
+            const words = cleanMessage.toLowerCase().split(/\s+/);
+            const importantWords = words.filter(word => 
+                word.length > 2 && 
+                !stopWords.has(word) && 
+                /^[a-zA-Z]/.test(word)
+            );
+            
+            // If we found a question pattern, create a question-based title
+            for (const pattern of questionPatterns) {
+                if (pattern.test(cleanMessage)) {
+                    const match = cleanMessage.match(pattern);
+                    if (match && importantWords.length > 0) {
+                        const firstWords = importantWords.slice(0, 3).join(' ');
+                        return `${match[0].trim()} ${firstWords}`.substring(0, 40);
+                    }
+                }
+            }
+            
+            // For statements, use first few important words
+            if (importantWords.length > 0) {
+                const title = importantWords.slice(0, 4).join(' ');
+                // Capitalize first letter
+                const capitalizedTitle = title.charAt(0).toUpperCase() + title.slice(1);
+                return capitalizedTitle.substring(0, 40);
+            }
+            
+            // Fallback: use first 40 characters with proper capitalization
+            const fallbackTitle = cleanMessage.charAt(0).toUpperCase() + cleanMessage.slice(1);
+            return fallbackTitle.substring(0, 40) + (cleanMessage.length > 40 ? '...' : '');
+        }
+        
+        async function createNewConversation(initialMessage = null) {
+            if (!token) {
+                addMessageToChat('system', '🔐 Please login to create conversations.');
+                return;
+            }
+            
+            try {
+                // Generate smart title based on initial message or use default
+                const title = initialMessage ? 
+                    generateSmartTitle(initialMessage) : 
+                    `New Chat ${new Date().toLocaleTimeString()}`;
+                
+                const response = await fetch(`${API_BASE}/api/conversations/`, {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({
+                        title: title,
+                        model_used: currentModel
+                    })
+                });
+                
+                if (response.ok) {
+                    const newConversation = await response.json();
+                    
+                    // Preserve file and search contexts when creating new conversation
+                    const fileContexts = conversationContext.filter(msg => 
+                        msg.role === "system" && msg.content.includes("=== DOCUMENT CONTEXT ===")
+                    );
+                    const searchContexts = conversationContext.filter(msg => 
+                        msg.role === "system" && msg.content.includes("=== WEB SEARCH CONTEXT ===")
+                    );
+                    
+                    // Clear current chat but preserve contexts
+                    const chatMessages = document.getElementById('chatMessages');
+                    chatMessages.innerHTML = '<div class="text-center" style="color: var(--text-muted);">Start a conversation...</div>';
+                    
+                    // Set new conversation ID
+                    currentConversationId = newConversation.id;
+                    
+                    // Restore contexts to conversation context
+                    conversationContext = [...fileContexts, ...searchContexts];
+                    
+                    // Refresh conversation list
+                    loadConversations();
+                    loadConversationStats();
+                    
+                    if (!initialMessage) {
+                        addMessageToChat('system', `✅ Started new conversation: ${newConversation.title}`);
+                    }
+                    
+                    // Debug: Log preserved contexts
+                    console.log('Preserved contexts for new conversation:', {
+                        fileContexts: fileContexts.length,
+                        searchContexts: searchContexts.length,
+                        totalContext: conversationContext.length
+                    });
+                    
+                    return newConversation;
+                } else {
+                    const error = await response.json();
+                    addMessageToChat('system', `❌ Failed to create conversation: ${error.detail || 'Unknown error'}`);
+                    return null;
+                }
+            } catch (error) {
+                addMessageToChat('system', `❌ Error creating conversation: ${error.message}`);
+                return null;
+            }
+        }
+        
+        async function loadConversation(conversationId) {
+            if (!token) {
+                addMessageToChat('system', '🔐 Please login to load conversations.');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/conversations/${conversationId}`, {
+                    headers: getAuthHeaders()
+                });
+                
+                if (response.ok) {
+                    const conversation = await response.json();
+                    
+                    // Clear current chat
+                    const chatMessages = document.getElementById('chatMessages');
+                    chatMessages.innerHTML = '';
+                    
+                    // Set current conversation
+                    currentConversationId = conversationId;
+                    
+                    // Load messages
+                    if (conversation.messages && conversation.messages.length > 0) {
+                        conversation.messages.forEach(message => {
+                            addMessageToChat(message.role, message.content);
+                        });
+                        
+                        // Rebuild conversation context for AI
+                        conversationContext = conversation.messages
+                            .filter(msg => ['user', 'assistant'].includes(msg.role))
+                            .map(msg => ({ role: msg.role, content: msg.content }));
+                    } else {
+                        chatMessages.innerHTML = '<div class="text-center" style="color: var(--text-muted);">Start this conversation...</div>';
+                        conversationContext = [];
+                    }
+                    
+                    // Update UI
+                    loadConversations(); // Refresh to highlight active conversation
+                    addMessageToChat('system', `📂 Loaded conversation: ${conversation.title}`);
+                    
+                } else {
+                    addMessageToChat('system', '❌ Failed to load conversation.');
+                }
+            } catch (error) {
+                addMessageToChat('system', `❌ Error loading conversation: ${error.message}`);
+            }
+        }
+        
+        async function deleteConversation(conversationId) {
+            if (!token) {
+                addMessageToChat('system', '🔐 Please login to delete conversations.');
+                return;
+            }
+            
+            if (!confirm('Are you sure you want to delete this conversation? This action cannot be undone.')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/conversations/${conversationId}`, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+                
+                if (response.ok) {
+                    // If this was the current conversation, clear it
+                    if (currentConversationId === conversationId) {
+                        clearChat();
+                        currentConversationId = null;
+                    }
+                    
+                    // Refresh conversation list
+                    loadConversations();
+                    loadConversationStats();
+                    
+                    addMessageToChat('system', '✅ Conversation deleted successfully.');
+                } else {
+                    addMessageToChat('system', '❌ Failed to delete conversation.');
+                }
+            } catch (error) {
+                addMessageToChat('system', `❌ Error deleting conversation: ${error.message}`);
+            }
+        }
+        
+        async function searchConversations() {
+            const searchInput = document.getElementById('conversationSearch');
+            const query = searchInput.value.trim();
+            
+            if (!token) {
+                updateConversationsList([], 'Please login to search conversations.');
+                return;
+            }
+            
+            if (!query) {
+                loadConversations(); // Show all conversations
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/conversations/search?q=${encodeURIComponent(query)}`, {
+                    headers: getAuthHeaders()
+                });
+                
+                if (response.ok) {
+                    const conversations = await response.json();
+                    updateConversationsList(conversations);
+                } else {
+                    updateConversationsList([], 'Search failed.');
+                }
+            } catch (error) {
+                updateConversationsList([], `Search error: ${error.message}`);
+            }
+        }
+        
+        async function loadConversationStats() {
+            if (!token) {
+                updateConversationStats({ total_conversations: 0, total_messages: 0 });
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/conversations/stats`, {
+                    headers: getAuthHeaders()
+                });
+                
+                if (response.ok) {
+                    const stats = await response.json();
+                    updateConversationStats(stats);
+                } else {
+                    updateConversationStats({ total_conversations: 0, total_messages: 0 });
+                }
+            } catch (error) {
+                updateConversationStats({ total_conversations: 0, total_messages: 0 });
+            }
+        }
+        
+        function updateConversationStats(stats) {
+            const totalConversations = document.getElementById('totalConversations');
+            const totalMessages = document.getElementById('totalMessages');
+            
+            if (totalConversations) {
+                totalConversations.textContent = stats.total_conversations || 0;
+            }
+            if (totalMessages) {
+                totalMessages.textContent = stats.total_messages || 0;
+            }
+        }
+        
+        // Save messages to current conversation automatically
+        async function saveMessageToConversation(role, content) {
+            console.log('saveMessageToConversation called:', { role, content: content.substring(0, 50) + '...', currentConversationId });
+            
+            if (!token || !currentConversationId) {
+                console.log('No token or conversation ID, skipping save');
+                return; // No conversation to save to
+            }
+            
+            try {
+                console.log('Saving message to conversation:', currentConversationId);
+                const response = await fetch(`${API_BASE}/api/conversations/${currentConversationId}/messages`, {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({
+                        role: role,
+                        content: content,
+                        metadata: {
+                            model: currentModel,
+                            timestamp: new Date().toISOString()
+                        }
+                    })
+                });
+                
+                console.log('Save message response status:', response.status);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Failed to save message:', response.status, errorText);
+                }
+                
+                // Refresh stats
+                if (conversationHistoryVisible) {
+                    loadConversationStats();
+                }
+            } catch (error) {
+                console.error('Failed to save message to conversation:', error);
+            }
+        }
+        
+        // Load user preferences function
+        async function loadUserPreferences() {
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/v2/preferences`, {
+                    headers: getAuthHeaders()
+                });
+                
+                if (response.ok) {
+                    const preferences = await response.json();
+                    // Apply preferences (future implementation)
+                    console.log('User preferences loaded:', preferences);
+                }
+            } catch (error) {
+                console.log('Failed to load user preferences:', error);
+            }
+        }
+        
+        // Initialize theme when page loads - MOVED TO END OF SCRIPT
+        // This will be called at the very end after all variables and functions are defined
+
+        // Debug function to log conversation context
+        function debugConversationContext() {
+            console.log('=== CONVERSATION CONTEXT DEBUG ===');
+            console.log('Total messages:', conversationContext.length);
+            
+            conversationContext.forEach((msg, index) => {
+                const preview = msg.content.length > 100 ? 
+                    msg.content.substring(0, 100) + '...' : 
+                    msg.content;
+                console.log(`${index + 1}. [${msg.role}] ${preview}`);
+            });
+            
+            // Check for file context
+            const fileContexts = conversationContext.filter(msg => 
+                msg.role === "system" && msg.content.includes("=== DOCUMENT CONTEXT ===")
+            );
+            console.log('File contexts found:', fileContexts.length);
+            
+            // Check for search context
+            const searchContexts = conversationContext.filter(msg => 
+                msg.role === "system" && msg.content.includes("=== WEB SEARCH CONTEXT ===")
+            );
+            console.log('Search contexts found:', searchContexts.length);
+            
+            console.log('=== END DEBUG ===');
+        }
+
+        // Enhanced context management
+        function manageConversationContext() {
+            if (conversationContext.length > 15) {
+                // Keep file and search contexts, plus recent conversation
+                const fileContexts = conversationContext.filter(msg => 
+                    msg.role === "system" && msg.content.includes("=== DOCUMENT CONTEXT ===")
+                );
+                const searchContexts = conversationContext.filter(msg => 
+                    msg.role === "system" && msg.content.includes("=== WEB SEARCH CONTEXT ===")
+                );
+                const recentMessages = conversationContext.filter(msg => 
+                    msg.role !== "system" || (!msg.content.includes("=== DOCUMENT CONTEXT ===") && !msg.content.includes("=== WEB SEARCH CONTEXT ==="))
+                ).slice(-8); // Keep fewer recent messages to make room for contexts
+                
+                conversationContext = [...fileContexts, ...searchContexts, ...recentMessages];
+                
+                console.log('Context managed:', {
+                    fileContexts: fileContexts.length,
+                    searchContexts: searchContexts.length,
+                    recentMessages: recentMessages.length,
+                    total: conversationContext.length
+                });
+            }
+        }
+        
+        // Initialize theme when page loads - MOVED TO END OF SCRIPT
+        // This will be called at the very end after all variables and functions are defined
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded event fired - all variables should be defined now');
+            console.log('token available:', typeof token !== 'undefined');
+            console.log('API_BASE available:', typeof API_BASE !== 'undefined');
+            
+            initTheme();
+            initModelPreference();
+            
+            // Ensure authentication required state is shown initially if no token
+            if (!token) {
+                updateAuthUI(false);
+            }
+            
+            checkAuthOnLoad();
+            
+            // Add logout button event listeners to ALL logout buttons
+            const logoutButtons = Array.from(document.querySelectorAll('button')).filter(btn => 
+                btn.textContent.includes('Logout')
+            );
+            console.log('Found logout buttons:', logoutButtons.length);
+            logoutButtons.forEach((btn, index) => {
+                console.log(`Adding listener to logout button ${index}:`, btn.id || 'no-id');
+                btn.addEventListener('click', logout);
+            });
+        });
+    </script>
+</body>
+</html>
